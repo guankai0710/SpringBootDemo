@@ -1,6 +1,5 @@
 package com.demo.springbootdemo.utils;
 
-import com.demo.springbootdemo.constant.FormatConstant;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -15,6 +14,19 @@ public class CheckFormatUtil {
     private CheckFormatUtil(){}
 
     /**
+     * 手机号码正则表达式
+     **/
+    public static final String PATTERN_MOBILE = "^1[3|4|5|6|7|8|9][0-9]{9}$";
+    /**
+     * 邮箱号码正则表达式
+     **/
+    public static final String PATTERN_EMAIL = "^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$";
+    /**
+     * 身份证号码正则表达式
+     **/
+    public static final String PATTERN_IDCARD = "^[1-9]\\d{7}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{3}$|^[1-9]\\d{5}[1-9]\\d{3}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{3}([0-9]|X)$";
+
+    /**
      * 手机号码校验
      *
      * @Author: guan.kai
@@ -23,7 +35,7 @@ public class CheckFormatUtil {
      * @Return: boolean
      **/
     public static boolean isMobile(String mobileNo){
-        return (StringUtils.isNotBlank(mobileNo) && mobileNo.matches(FormatConstant.Regex.PATTERN_MOBILE));
+        return (StringUtils.isNotBlank(mobileNo) && mobileNo.matches(PATTERN_MOBILE));
     }
 
     /**
@@ -35,7 +47,7 @@ public class CheckFormatUtil {
      * @Return: boolean
      **/
     public static boolean isEmail(String email){
-        return (StringUtils.isNotBlank(email) && email.matches(FormatConstant.Regex.PATTERN_EMAIL));
+        return (StringUtils.isNotBlank(email) && email.matches(PATTERN_EMAIL));
     }
 
     /**
@@ -47,6 +59,6 @@ public class CheckFormatUtil {
      * @Return: boolean
      **/
     public static boolean isIdCard(String idCard){
-        return (StringUtils.isNotBlank(idCard) && idCard.matches(FormatConstant.Regex.PATTERN_IDCARD));
+        return (StringUtils.isNotBlank(idCard) && idCard.matches(PATTERN_IDCARD));
     }
 }
