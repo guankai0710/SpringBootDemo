@@ -3,6 +3,7 @@ package com.demo.springbootdemo.controller;
 import com.alibaba.fastjson.JSON;
 import com.demo.springbootdemo.entity.Person;
 import com.demo.springbootdemo.entity.PersonCriteria;
+import com.demo.springbootdemo.enumeration.SexEnum;
 import com.demo.springbootdemo.service.IPersonService;
 import com.demo.springbootdemo.utils.ExcelUtil;
 import com.demo.springbootdemo.utils.MyCollectionsUitl;
@@ -34,7 +35,10 @@ public class PersonController {
     @RequestMapping("/show")
     @ResponseBody
     public String show(){
-        Person person = personService.getById("337617ab5fb54206abc1e908784e6d9572889dcd873743fdb3056f9bd3701e21");
+        Person person = personService.getById("337617ab5fb54206abc1e908784e6d95");
+        if (person != null){
+            person.setSexDoc(SexEnum.getByValue(person.getSex()).getDoc());
+        }
         PersonCriteria criteria = new PersonCriteria();
         List<Person> personList = personService.selectByExample(criteria);
         List<String> collect = personList.stream().map(Person::getAddress).collect(Collectors.toList());
