@@ -24,6 +24,8 @@ public class Person implements Serializable {
 
     private String address;
 
+    private String sexDoc;
+
     private static final long serialVersionUID = 1L;
 
     public Person(String id, String name, String departmentId, String age, String sex, String tel, String address) {
@@ -94,6 +96,14 @@ public class Person implements Serializable {
 
     public void setAddress(String address) {
         this.address = address == null ? null : address.trim();
+    }
+
+    public String getSexDoc() {
+        return sexDoc;
+    }
+
+    public void setSexDoc(String sexDoc) {
+        this.sexDoc = sexDoc;
     }
 
     @Override
