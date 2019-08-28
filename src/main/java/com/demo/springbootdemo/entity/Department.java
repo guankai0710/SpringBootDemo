@@ -10,10 +10,20 @@ import java.io.Serializable;
  * @Version: 0.0.1
  **/
 public class Department implements Serializable {
+
+    /**
+     * 部门id
+     **/
     private String id;
 
+    /**
+     * 父级部门id
+     **/
     private String parentId;
 
+    /**
+     * 部门名称
+     **/
     private String name;
 
     private static final long serialVersionUID = 1L;

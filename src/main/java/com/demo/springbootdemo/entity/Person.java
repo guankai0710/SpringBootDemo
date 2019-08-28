@@ -10,20 +10,45 @@ import java.io.Serializable;
  * @Version: 0.0.1
  **/
 public class Person implements Serializable {
+
+    /**
+     * 人员id
+     **/
     private String id;
 
+    /**
+     * 姓名
+     **/
     private String name;
 
+    /**
+     * 部门id
+     **/
     private String departmentId;
 
+    /**
+     * 年龄
+     **/
     private String age;
 
+    /**
+     * 性别
+     **/
     private String sex;
 
+    /**
+     * 联系电话
+     **/
     private String tel;
 
+    /**
+     * 地址
+     **/
     private String address;
 
+    /**
+     * 性别描述
+     **/
     private String sexDoc;
 
     private static final long serialVersionUID = 1L;

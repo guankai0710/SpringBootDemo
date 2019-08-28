@@ -12,6 +12,8 @@ import org.apache.commons.lang3.StringUtils;
  **/
 public class CheckFormatUtil {
 
+    private CheckFormatUtil(){}
+
     /**
      * 手机号码校验
      *
@@ -21,7 +23,7 @@ public class CheckFormatUtil {
      * @Return: boolean
      **/
     public static boolean isMobile(String mobileNo){
-        return (StringUtils.isNotBlank(mobileNo) && mobileNo.matches(FormatConstant.REGEX.PATTERN_MOBILE));
+        return (StringUtils.isNotBlank(mobileNo) && mobileNo.matches(FormatConstant.Regex.PATTERN_MOBILE));
     }
 
     /**
@@ -33,7 +35,7 @@ public class CheckFormatUtil {
      * @Return: boolean
      **/
     public static boolean isEmail(String email){
-        return (StringUtils.isNotBlank(email) && email.matches(FormatConstant.REGEX.PATTERN_EMAIL));
+        return (StringUtils.isNotBlank(email) && email.matches(FormatConstant.Regex.PATTERN_EMAIL));
     }
 
     /**
@@ -45,6 +47,6 @@ public class CheckFormatUtil {
      * @Return: boolean
      **/
     public static boolean isIdCard(String idCard){
-        return (StringUtils.isNotBlank(idCard) && idCard.matches(FormatConstant.REGEX.PATTERN_IDCARD));
+        return (StringUtils.isNotBlank(idCard) && idCard.matches(FormatConstant.Regex.PATTERN_IDCARD));
     }
 }

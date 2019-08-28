@@ -1,4 +1,4 @@
-package com.demo.springbootdemo.mapper;
+package com.demo.springbootdemo.dao;
 
 import com.demo.springbootdemo.entity.Department;
 import com.demo.springbootdemo.entity.DepartmentCriteria;

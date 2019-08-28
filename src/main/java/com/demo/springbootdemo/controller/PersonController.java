@@ -2,21 +2,13 @@ package com.demo.springbootdemo.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.demo.springbootdemo.entity.Person;
-import com.demo.springbootdemo.entity.PersonCriteria;
 import com.demo.springbootdemo.enumeration.SexEnum;
-import com.demo.springbootdemo.service.IPersonService;
-import com.demo.springbootdemo.utils.ExcelUtil;
-import com.demo.springbootdemo.utils.MyCollectionsUitl;
-import org.apache.poi.ss.formula.functions.T;
+import com.demo.springbootdemo.manager.IPersonManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletResponse;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * 用户操作接口
@@ -30,31 +22,16 @@ import java.util.stream.Collectors;
 public class PersonController {
 
     @Resource
-    private IPersonService personService;
+    private IPersonManager personManager;
 
     @RequestMapping("/show")
     @ResponseBody
     public String show(){
-        Person person = personService.getById("337617ab5fb54206abc1e908784e6d95");
+        Person person = personManager.getById("337617ab5fb54206abc1e908784e6d95");
         if (person != null){
             person.setSexDoc(SexEnum.getByValue(person.getSex()).getDoc());
         }
-        PersonCriteria criteria = new PersonCriteria();
-        List<Person> personList = personService.selectByExample(criteria);
-        List<String> collect = personList.stream().map(Person::getAddress).collect(Collectors.toList());
-        List<List<Person>> lists = MyCollectionsUitl.subList(personList, 1);
-        System.out.println("person:====:"+person.toString());
-        String jsonStr = JSON.toJSONString(personList);
-        return jsonStr;
-    }
-
-    public void exportExcel(HttpServletResponse response){
-        String fileName = "测试导出表格.xlsx";
-        String sheetName = "测试导出";
-        String[] title = new String[2];
-        String[][] content = new String[2][3];
-        int[] colWidth = new int[2];
-        ExcelUtil.exportExcel(response,fileName,sheetName,title,content,colWidth);
+        return JSON.toJSONString(person);
     }
 
 }

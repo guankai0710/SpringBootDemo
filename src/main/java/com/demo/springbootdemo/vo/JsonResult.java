@@ -26,7 +26,7 @@ public class JsonResult implements Serializable {
     /**
      * 数据
      **/
-    Object obj;
+    transient Object obj;
 
     public boolean isSuccess() {
         return success;

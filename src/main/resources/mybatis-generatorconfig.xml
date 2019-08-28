@@ -46,13 +46,13 @@
         </javaModelGenerator>
 
         <!-- 生成mapper.xml配置文件位置 -->
-        <sqlMapGenerator targetPackage="mapping"
+        <sqlMapGenerator targetPackage="mapper"
                         targetProject="src/main/resources">
         <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
 
         <!-- 生成mapper接口文件位置 -->
-        <javaClientGenerator targetPackage="com.demo.springbootdemo.mapper"
+        <javaClientGenerator targetPackage="com.demo.springbootdemo.dao"
                             targetProject="src/main/java"
                             type="XMLMAPPER">
         <property name="enableSubPackages" value="true"/>
