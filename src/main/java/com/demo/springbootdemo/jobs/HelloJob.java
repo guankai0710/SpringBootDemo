@@ -29,11 +29,9 @@ public class HelloJob {
      **/
     @Scheduled(cron = "0 0 8 * * ?")
     public void scheduled(){
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         String date = format.format(new Date());
-        logger.debug("定时任务：debug日志输出---"+date);
-        logger.info("定时任务：info日志输出---"+date);
-        logger.warn("定时任务：warn日志输出---"+date);
-        logger.error("定时任务：error日志输出---"+date);
+        String str = String.format("%s-早上好！", date);
+        logger.error(str);
     }
 }

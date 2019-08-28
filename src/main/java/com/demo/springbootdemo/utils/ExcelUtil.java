@@ -26,6 +26,8 @@ import java.io.UnsupportedEncodingException;
  **/
 public class ExcelUtil {
 
+    private ExcelUtil(){}
+
     private static final Logger logger = LoggerFactory.getLogger(ExcelUtil.class);
 
     /**
@@ -257,33 +259,29 @@ public class ExcelUtil {
      * @Return: void
      **/
     private static void setResponseHeader(HttpServletResponse response, XSSFWorkbook wb, String fileName) {
+        ServletOutputStream os = null;
         try {
-            try {
-                fileName = new String(fileName.getBytes(),"ISO8859-1");
-            } catch (UnsupportedEncodingException e) {
-                logger.error(e.getMessage());
-            }
+            fileName = new String(fileName.getBytes(),"ISO8859-1");
             response.setContentType("application/octet-stream;charset=ISO8859-1");
             response.setHeader("Content-Disposition", "attachment;filename="+ fileName);
             response.addHeader("Pargam", "no-cache");
             response.addHeader("Cache-Control", "no-cache");
             //响应到客户端
-            ServletOutputStream os = null;
-            try {
-                os = response.getOutputStream();
-                wb.write(os);
-            } catch (IOException e) {
-                logger.error(e.getMessage());
-            }finally {
-                try {
-                    os.flush();
-                    os.close();
-                } catch (IOException e) {
-                    logger.error(e.getMessage());
-                }
-            }
+            os = response.getOutputStream();
+            wb.write(os);
+        } catch (UnsupportedEncodingException e) {
+            logger.error(e.getMessage());
+        } catch (IOException e) {
+            logger.error(e.getMessage());
         } catch (Exception ex) {
             logger.error(ex.getMessage());
+        } finally {
+            try {
+                os.flush();
+                os.close();
+            } catch (IOException e) {
+                logger.error(e.getMessage());
+            }
         }
     }
 

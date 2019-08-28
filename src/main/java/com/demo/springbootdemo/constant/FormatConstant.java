@@ -8,6 +8,8 @@ package com.demo.springbootdemo.constant;
  * @Version: 1.0.0
  **/
 public class FormatConstant {
+    private FormatConstant() {
+    }
 
     /**
      * 正则表达式
@@ -17,7 +19,8 @@ public class FormatConstant {
      * @Param:
      * @Return:
      **/
-    public static final class REGEX{
+    public static final class Regex{
+        private Regex(){}
         /**
          * 手机号码
          **/

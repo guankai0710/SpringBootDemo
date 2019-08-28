@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  **/
 @SpringBootApplication
 @EnableTransactionManagement
-@MapperScan("com.demo.springbootdemo.mapper") //扫描的mapper
+@MapperScan("com.demo.springbootdemo.dao") //扫描的mybatis接口
 public class SpringbootDemoApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
