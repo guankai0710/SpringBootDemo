@@ -35,7 +35,9 @@ public class WebConfigurer implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         // addPathPatterns("/**") 表示拦截所有的请求，
         // excludePathPatterns("/login", "/register") 表示除了登陆与注册之外，因为登陆注册不需要登陆也可以访问
-        registry.addInterceptor(loginInterceptor).addPathPatterns("/**").excludePathPatterns("/login", "/register");
+        registry.addInterceptor(loginInterceptor)
+                .addPathPatterns("/**")
+                .excludePathPatterns("/login", "/register","/css/**","/js/**","/images/**");
 //        super.addInterceptors(registry);    //较新Spring Boot的版本中这里可以直接去掉，否则会报错
     }
 
@@ -49,6 +51,8 @@ public class WebConfigurer implements WebMvcConfigurer {
      **/
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-
+        //addResourceHandler("/static/**") 设置访问路径前缀
+        //addResourceLocations("classpath:/static/") 设置资源路径
+//        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
     }
 }
