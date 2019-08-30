@@ -64,6 +64,11 @@
         <!--enableDeleteByExample="false" enableSelectByExample="false"-->
         <!--selectByExampleQueryId="false">-->
         <!--</table>-->
+
+        <!--<table tableName="demo_person" domainObjectName="Person">-->
+            <!--<generatedKey column="id" sqlStatement="Oracle" identity="true"/>-->
+        <!--</table>-->
+
         <table tableName="demo_department" domainObjectName="Department"></table>
         <table tableName="demo_person" domainObjectName="Person"></table>
 
