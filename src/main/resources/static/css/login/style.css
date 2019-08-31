@@ -1,0 +1,112 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: url(../../images/login/cover4.jpg) no-repeat 0px 0px;
+    /*min-height: 100vh;*/
+    background-size: cover;
+    font-family: 'Raleway', sans-serif;
+}
+
+h1 {
+    margin: 0;
+    color: #ffffff;
+    text-align: center;
+    font-size: 50px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    padding: 50px 0;
+}
+
+p.register-p {
+    color: #eee;
+    font-size: 13px;
+    text-align: center;
+    margin-top: 2em;
+}
+
+.login-form {
+    background: rgba(0, 0, 0, 0.4117647058823529);
+    max-width: 500px;
+    margin: auto;
+    padding: 3em;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+.register-form {
+    background: rgba(0, 0, 0, 0.4117647058823529);
+    max-width: 500px;
+    margin: auto;
+    padding: 3em;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+.group {
+    display: flex;
+    padding: 15px 5px;
+    background-color: #ffffff;
+}
+
+.group i {
+    color: #fc3955;
+    font-size: 20px;
+    padding: 0 10px;
+}
+
+.form-group {
+    margin: 20px 0;
+}
+
+.form-group label {
+    display: block;
+    text-transform: uppercase;
+    font-size: 13px;
+    color: #d2d2d2;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    font-style: italic;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    border: none;
+    box-sizing: border-box;
+    background: transparent;
+    color: #000;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    outline: none;
+}
+
+button {
+    background: #fc3955;
+    color: #ffffff;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: none;
+    padding: 12px 60px;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 6px;
+}
+
+button:hover {
+    background-color: #00BCD4;
+    transition-duration: 5s;
+}
+
+a {
+    color: #eee;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.register {
+    color: #00BCD4;
+    text-decoration: none;
+}

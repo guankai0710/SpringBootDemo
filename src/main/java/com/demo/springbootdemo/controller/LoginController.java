@@ -1,7 +1,7 @@
 package com.demo.springbootdemo.controller;
 
 import com.demo.springbootdemo.entity.Person;
-import com.demo.springbootdemo.manager.IPersonManager;
+import com.demo.springbootdemo.service.IPersonService;
 import com.demo.springbootdemo.utils.CheckFormatUtil;
 import com.demo.springbootdemo.vo.JsonResult;
 import org.springframework.stereotype.Controller;
@@ -24,7 +24,7 @@ import javax.annotation.Resource;
 public class LoginController {
 
     @Resource
-    private IPersonManager personManager;
+    private IPersonService personService;
 
     /**
      * 登录页面
@@ -48,7 +48,7 @@ public class LoginController {
     @ResponseBody
     public JsonResult login(Model model, String account, String password){
         JsonResult result = new JsonResult();
-        Person person = personManager.getByAccount(account);
+        Person person = personService.getByAccount(account);
         if (person != null && password.equals(person.getPassword())){
             model.addAttribute("user",person);
             result.setSuccess(true);
@@ -82,7 +82,7 @@ public class LoginController {
     @ResponseBody
     public JsonResult register(Model model, String account, String password){
         JsonResult result = new JsonResult();
-        Person person = personManager.getByAccount(account);
+        Person person = personService.getByAccount(account);
         if (person != null){
             result.setMsg("该账号已存在！");
             return result;
@@ -91,7 +91,7 @@ public class LoginController {
             result.setMsg("密码必须由8-18位字母加数字组成！");
             return result;
         }
-        personManager.registerAccount(account,password);
+        personService.registerAccount(account,password);
         result.setSuccess(true);
         result.setMsg("注册成功！");
         return result;

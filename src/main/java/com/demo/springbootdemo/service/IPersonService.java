@@ -1,7 +1,6 @@
 package com.demo.springbootdemo.service;
 
 import com.demo.springbootdemo.entity.Person;
-import com.demo.springbootdemo.entity.PersonCriteria;
 
 import java.util.List;
 
@@ -30,18 +29,18 @@ public interface IPersonService {
     Person getByAccount(String account);
 
     /**
-     * 根据条件查询用户数据
+     * 查询所有用户数据
      *
-     * @param criteria 用户信息查询条件
      * @return 用户信息集合
      */
-    List<Person> selectByExample(PersonCriteria criteria);
+    List<Person> selectAll();
 
     /**
      * 注册账号
      *
-     * @param person 注册信息
+     * @param account 账号
+     * @param password 密码
      */
-    void registerAccount(Person person);
+    void registerAccount(String account, String password);
 
 }

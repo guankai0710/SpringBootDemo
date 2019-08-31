@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.demo.springbootdemo.entity.Person;
 import com.demo.springbootdemo.enumeration.SexEnum;
 import com.demo.springbootdemo.exceptions.MyOwnRuntimeException;
-import com.demo.springbootdemo.manager.IPersonManager;
+import com.demo.springbootdemo.service.IPersonService;
 import com.demo.springbootdemo.utils.MyCollectionsUitl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,12 +28,12 @@ public class PersonController {
     private static final Logger logger = LoggerFactory.getLogger(PersonController.class);
 
     @Resource
-    private IPersonManager personManager;
+    private IPersonService personService;
 
     @GetMapping("/show")
     @ResponseBody
     public String show(){
-        Person person = personManager.getById(1);
+        Person person = personService.getById(1);
         if (person != null){
             try {
                 person.setSexDoc(SexEnum.getByValue(person.getSex()).getDoc());
@@ -47,7 +47,7 @@ public class PersonController {
     @GetMapping("/all")
     @ResponseBody
     public String all(){
-        List<Person> personList = personManager.selectAll();
+        List<Person> personList = personService.selectAll();
         List<List<Person>> subList = MyCollectionsUitl.subList(personList, 2);
         return JSON.toJSONString(subList);
     }
