@@ -26,6 +26,11 @@ public class CheckFormatUtil {
     public static final String PATTERN_IDCARD = "^[1-9]\\d{7}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{3}$|^[1-9]\\d{5}[1-9]\\d{3}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{3}([0-9]|X)$";
 
     /**
+     * 密码正则表达式（8-18位字母加数字）
+     **/
+    public static final String PATTERN_PASSWORD = "^[a-zA-Z0-9]{8,18}$";
+
+    /**
      * 手机号码校验
      *
      * @param mobileNo 手机号
@@ -53,5 +58,15 @@ public class CheckFormatUtil {
      */
     public static boolean isIdCard(String idCard){
         return (StringUtils.isNotBlank(idCard) && idCard.matches(PATTERN_IDCARD));
+    }
+
+    /**
+     * 密码校验
+     *
+     * @param password 密码
+     * @return 是否匹配
+     */
+    public static boolean isAccount(String password){
+        return (StringUtils.isNotBlank(password) && password.matches(PATTERN_PASSWORD));
     }
 }

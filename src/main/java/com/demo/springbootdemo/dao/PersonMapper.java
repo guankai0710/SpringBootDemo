@@ -36,4 +36,13 @@ public interface PersonMapper {
     int updateByPrimaryKeySelective(Person record);
 
     int updateByPrimaryKey(Person record);
+
+    /**
+     * 根据用户账号获取用户数据
+     *
+     * @param account 账号
+     * @return
+     */
+    Person getByAccount(String account);
+
 }

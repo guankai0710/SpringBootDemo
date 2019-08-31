@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -35,6 +36,17 @@ public class PersonManagerImpl implements IPersonManager {
     }
 
     /**
+     * 根据用户账号获取用户数据
+     *
+     * @param account 账号
+     * @return
+     */
+    @Override
+    public Person getByAccount(String account) {
+        return personService.getByAccount(account);
+    }
+
+    /**
      * 查询所有用户数据
      *
      * @return 用户信息集合
@@ -43,5 +55,20 @@ public class PersonManagerImpl implements IPersonManager {
     public List<Person> selectAll() {
         PersonCriteria criteria = new PersonCriteria();
         return personService.selectByExample(criteria);
+    }
+
+    /**
+     * 注册账号
+     *
+     * @param account 账号
+     * @param password 密码
+     */
+    @Override
+    public void registerAccount(String account, String password) {
+        Person person = new Person();
+        person.setAccount(account);
+        person.setPassword(password);
+        person.setCreateTime(new Date());
+        personService.registerAccount(person);
     }
 }

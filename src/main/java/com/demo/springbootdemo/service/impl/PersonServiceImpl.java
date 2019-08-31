@@ -33,6 +33,17 @@ public class PersonServiceImpl implements IPersonService {
     }
 
     /**
+     * 根据用户账号获取用户数据
+     *
+     * @param account 账号
+     * @return
+     */
+    @Override
+    public Person getByAccount(String account) {
+        return personMapper.getByAccount(account);
+    }
+
+    /**
      * 根据条件查询用户数据
      *
      * @param criteria 用户信息查询条件
@@ -41,5 +52,15 @@ public class PersonServiceImpl implements IPersonService {
     @Override
     public List<Person> selectByExample(PersonCriteria criteria) {
         return personMapper.selectByExample(criteria);
+    }
+
+    /**
+     * 注册账号
+     *
+     * @param person 注册信息
+     */
+    @Override
+    public void registerAccount(Person person) {
+        personMapper.insertSelective(person);
     }
 }

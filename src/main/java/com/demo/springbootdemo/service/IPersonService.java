@@ -22,11 +22,26 @@ public interface IPersonService {
     Person getById(Integer id);
 
     /**
+     * 根据用户账号获取用户数据
+     *
+     * @param account 账号
+     * @return
+     */
+    Person getByAccount(String account);
+
+    /**
      * 根据条件查询用户数据
      *
      * @param criteria 用户信息查询条件
      * @return 用户信息集合
      */
     List<Person> selectByExample(PersonCriteria criteria);
+
+    /**
+     * 注册账号
+     *
+     * @param person 注册信息
+     */
+    void registerAccount(Person person);
 
 }

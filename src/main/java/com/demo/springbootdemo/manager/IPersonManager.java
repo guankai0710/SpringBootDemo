@@ -21,9 +21,25 @@ public interface IPersonManager {
     Person getById(Integer id);
 
     /**
+     * 根据用户账号获取用户数据
+     *
+     * @param account 账号
+     * @return
+     */
+    Person getByAccount(String account);
+
+    /**
      * 查询所有用户数据
      *
      * @return 用户信息集合
      */
     List<Person> selectAll();
+
+    /**
+     * 注册账号
+     *
+     * @param account 账号
+     * @param password 密码
+     */
+    void registerAccount(String account, String password);
 }

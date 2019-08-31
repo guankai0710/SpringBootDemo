@@ -15,7 +15,7 @@ public class JsonResult implements Serializable {
     /**
      * 状态
      **/
-    boolean success;
+    boolean success = false;
 
     /**
      * 信息
