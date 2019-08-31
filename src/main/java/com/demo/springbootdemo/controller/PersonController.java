@@ -9,6 +9,7 @@ import com.demo.springbootdemo.utils.MyCollectionsUitl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -18,9 +19,8 @@ import java.util.List;
 /**
  * 用户操作接口
  *
- * @Author: guan.kai
- * @CreateTime: 2019/8/14 22:15
- * @Version: 0.0.1
+ * @author: guan.kai
+ * @date: 2019/8/14 22:15
  **/
 @Controller
 @RequestMapping("/person")
@@ -30,10 +30,10 @@ public class PersonController {
     @Resource
     private IPersonManager personManager;
 
-    @RequestMapping("/show")
+    @GetMapping("/show")
     @ResponseBody
     public String show(){
-        Person person = personManager.getById("337617ab5fb54206abc1e908784e6d95");
+        Person person = personManager.getById(1);
         if (person != null){
             try {
                 person.setSexDoc(SexEnum.getByValue(person.getSex()).getDoc());
@@ -44,13 +44,12 @@ public class PersonController {
         return JSON.toJSONString(person);
     }
 
-    @RequestMapping("/all")
+    @GetMapping("/all")
     @ResponseBody
     public String all(){
         List<Person> personList = personManager.selectAll();
         List<List<Person>> subList = MyCollectionsUitl.subList(personList, 2);
-        String result = JSON.toJSONString(subList);
-        return result;
+        return JSON.toJSONString(subList);
     }
 
 }

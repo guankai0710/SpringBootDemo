@@ -114,62 +114,52 @@ public class PersonCriteria {
             return (Criteria) this;
         }
 
-        public Criteria andIdEqualTo(String value) {
+        public Criteria andIdEqualTo(Integer value) {
             addCriterion("ID =", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotEqualTo(String value) {
+        public Criteria andIdNotEqualTo(Integer value) {
             addCriterion("ID <>", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThan(String value) {
+        public Criteria andIdGreaterThan(Integer value) {
             addCriterion("ID >", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdGreaterThanOrEqualTo(String value) {
+        public Criteria andIdGreaterThanOrEqualTo(Integer value) {
             addCriterion("ID >=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThan(String value) {
+        public Criteria andIdLessThan(Integer value) {
             addCriterion("ID <", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdLessThanOrEqualTo(String value) {
+        public Criteria andIdLessThanOrEqualTo(Integer value) {
             addCriterion("ID <=", value, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdLike(String value) {
-            addCriterion("ID like", value, "id");
-            return (Criteria) this;
-        }
-
-        public Criteria andIdNotLike(String value) {
-            addCriterion("ID not like", value, "id");
-            return (Criteria) this;
-        }
-
-        public Criteria andIdIn(List<String> values) {
+        public Criteria andIdIn(List<Integer> values) {
             addCriterion("ID in", values, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotIn(List<String> values) {
+        public Criteria andIdNotIn(List<Integer> values) {
             addCriterion("ID not in", values, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdBetween(String value1, String value2) {
+        public Criteria andIdBetween(Integer value1, Integer value2) {
             addCriterion("ID between", value1, value2, "id");
             return (Criteria) this;
         }
 
-        public Criteria andIdNotBetween(String value1, String value2) {
+        public Criteria andIdNotBetween(Integer value1, Integer value2) {
             addCriterion("ID not between", value1, value2, "id");
             return (Criteria) this;
         }
@@ -254,62 +244,52 @@ public class PersonCriteria {
             return (Criteria) this;
         }
 
-        public Criteria andDepartmentIdEqualTo(String value) {
+        public Criteria andDepartmentIdEqualTo(Integer value) {
             addCriterion("DEPARTMENT_ID =", value, "departmentId");
             return (Criteria) this;
         }
 
-        public Criteria andDepartmentIdNotEqualTo(String value) {
+        public Criteria andDepartmentIdNotEqualTo(Integer value) {
             addCriterion("DEPARTMENT_ID <>", value, "departmentId");
             return (Criteria) this;
         }
 
-        public Criteria andDepartmentIdGreaterThan(String value) {
+        public Criteria andDepartmentIdGreaterThan(Integer value) {
             addCriterion("DEPARTMENT_ID >", value, "departmentId");
             return (Criteria) this;
         }
 
-        public Criteria andDepartmentIdGreaterThanOrEqualTo(String value) {
+        public Criteria andDepartmentIdGreaterThanOrEqualTo(Integer value) {
             addCriterion("DEPARTMENT_ID >=", value, "departmentId");
             return (Criteria) this;
         }
 
-        public Criteria andDepartmentIdLessThan(String value) {
+        public Criteria andDepartmentIdLessThan(Integer value) {
             addCriterion("DEPARTMENT_ID <", value, "departmentId");
             return (Criteria) this;
         }
 
-        public Criteria andDepartmentIdLessThanOrEqualTo(String value) {
+        public Criteria andDepartmentIdLessThanOrEqualTo(Integer value) {
             addCriterion("DEPARTMENT_ID <=", value, "departmentId");
             return (Criteria) this;
         }
 
-        public Criteria andDepartmentIdLike(String value) {
-            addCriterion("DEPARTMENT_ID like", value, "departmentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andDepartmentIdNotLike(String value) {
-            addCriterion("DEPARTMENT_ID not like", value, "departmentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andDepartmentIdIn(List<String> values) {
+        public Criteria andDepartmentIdIn(List<Integer> values) {
             addCriterion("DEPARTMENT_ID in", values, "departmentId");
             return (Criteria) this;
         }
 
-        public Criteria andDepartmentIdNotIn(List<String> values) {
+        public Criteria andDepartmentIdNotIn(List<Integer> values) {
             addCriterion("DEPARTMENT_ID not in", values, "departmentId");
             return (Criteria) this;
         }
 
-        public Criteria andDepartmentIdBetween(String value1, String value2) {
+        public Criteria andDepartmentIdBetween(Integer value1, Integer value2) {
             addCriterion("DEPARTMENT_ID between", value1, value2, "departmentId");
             return (Criteria) this;
         }
 
-        public Criteria andDepartmentIdNotBetween(String value1, String value2) {
+        public Criteria andDepartmentIdNotBetween(Integer value1, Integer value2) {
             addCriterion("DEPARTMENT_ID not between", value1, value2, "departmentId");
             return (Criteria) this;
         }
@@ -324,62 +304,52 @@ public class PersonCriteria {
             return (Criteria) this;
         }
 
-        public Criteria andAgeEqualTo(String value) {
+        public Criteria andAgeEqualTo(Integer value) {
             addCriterion("AGE =", value, "age");
             return (Criteria) this;
         }
 
-        public Criteria andAgeNotEqualTo(String value) {
+        public Criteria andAgeNotEqualTo(Integer value) {
             addCriterion("AGE <>", value, "age");
             return (Criteria) this;
         }
 
-        public Criteria andAgeGreaterThan(String value) {
+        public Criteria andAgeGreaterThan(Integer value) {
             addCriterion("AGE >", value, "age");
             return (Criteria) this;
         }
 
-        public Criteria andAgeGreaterThanOrEqualTo(String value) {
+        public Criteria andAgeGreaterThanOrEqualTo(Integer value) {
             addCriterion("AGE >=", value, "age");
             return (Criteria) this;
         }
 
-        public Criteria andAgeLessThan(String value) {
+        public Criteria andAgeLessThan(Integer value) {
             addCriterion("AGE <", value, "age");
             return (Criteria) this;
         }
 
-        public Criteria andAgeLessThanOrEqualTo(String value) {
+        public Criteria andAgeLessThanOrEqualTo(Integer value) {
             addCriterion("AGE <=", value, "age");
             return (Criteria) this;
         }
 
-        public Criteria andAgeLike(String value) {
-            addCriterion("AGE like", value, "age");
-            return (Criteria) this;
-        }
-
-        public Criteria andAgeNotLike(String value) {
-            addCriterion("AGE not like", value, "age");
-            return (Criteria) this;
-        }
-
-        public Criteria andAgeIn(List<String> values) {
+        public Criteria andAgeIn(List<Integer> values) {
             addCriterion("AGE in", values, "age");
             return (Criteria) this;
         }
 
-        public Criteria andAgeNotIn(List<String> values) {
+        public Criteria andAgeNotIn(List<Integer> values) {
             addCriterion("AGE not in", values, "age");
             return (Criteria) this;
         }
 
-        public Criteria andAgeBetween(String value1, String value2) {
+        public Criteria andAgeBetween(Integer value1, Integer value2) {
             addCriterion("AGE between", value1, value2, "age");
             return (Criteria) this;
         }
 
-        public Criteria andAgeNotBetween(String value1, String value2) {
+        public Criteria andAgeNotBetween(Integer value1, Integer value2) {
             addCriterion("AGE not between", value1, value2, "age");
             return (Criteria) this;
         }

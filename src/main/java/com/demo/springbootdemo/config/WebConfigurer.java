@@ -10,9 +10,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 /**
  * web拦截器配置类
  *
- * @Author: guan.kai
- * @CreateTime: 2019/8/29 17:31
- * @Version: 1.0.0
+ * @author: guan.kai
+ * @date: 2019/8/29 17:31
  **/
 @Configuration
 public class WebConfigurer implements WebMvcConfigurer {
@@ -26,11 +25,8 @@ public class WebConfigurer implements WebMvcConfigurer {
     /**
      * 注册拦截器，我们自己写好的拦截器需要通过这里添加注册才能生效
      *
-     * @Author: guan.kai
-     * @CreateTime: 2019/8/29 17:33
-     * @Param: [registry]
-     * @Return: void
-     **/
+     * @param registry
+     */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         // addPathPatterns("/**") 表示拦截所有的请求，
@@ -44,11 +40,8 @@ public class WebConfigurer implements WebMvcConfigurer {
     /**
      * 配置静态资源的，比如html，js，css，等等
      *
-     * @Author: guan.kai
-     * @CreateTime: 2019/8/29 17:33
-     * @Param: [registry]
-     * @Return: void
-     **/
+     * @param registry
+     */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         //addResourceHandler("/static/**") 设置访问路径前缀

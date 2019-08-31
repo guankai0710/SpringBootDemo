@@ -5,9 +5,8 @@ import com.demo.springbootdemo.exceptions.MyOwnRuntimeException;
 /**
  * 性别枚举类
  *
- * @Author: guan.kai
- * @CreateTime: 2019/8/28 9:51
- * @Version: 1.0.0
+ * @author: guan.kai
+ * @date: 2019/8/28 9:51
  **/
 public enum  SexEnum {
 
@@ -39,11 +38,10 @@ public enum  SexEnum {
     /**
      * 根据值获取枚举对象
      *
-     * @Author: guan.kai
-     * @CreateTime: 2019/8/28 15:15
-     * @Param: [value]
-     * @Return: com.demo.springbootdemo.enumeration.SexEnum
-     **/
+     * @param value 值
+     * @return 枚举类对象
+     * @throws MyOwnRuntimeException 自定义请求超时异常
+     */
     public static SexEnum getByValue(String value) throws MyOwnRuntimeException {
         for (SexEnum sexEnum : SexEnum.values()) {
             if (value.equals(sexEnum.getValue())){
@@ -56,11 +54,10 @@ public enum  SexEnum {
     /**
      * 根据描述获取枚举对象
      *
-     * @Author: guan.kai
-     * @CreateTime: 2019/8/28 15:16
-     * @Param: [doc]
-     * @Return: com.demo.springbootdemo.enumeration.SexEnum
-     **/
+     * @param doc 值
+     * @return 枚举类对象
+     * @throws MyOwnRuntimeException 自定义请求超时异常
+     */
     public static SexEnum getByDoc(String doc) throws MyOwnRuntimeException {
         for (SexEnum sexEnum : SexEnum.values()) {
             if (doc.equals(sexEnum.getDoc())){

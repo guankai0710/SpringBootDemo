@@ -5,9 +5,8 @@ import java.io.Serializable;
 /**
  * 自定义控制器返回模型
  *
- * @Author: guan.kai
- * @CreateTime: 2019/8/19 22:04
- * @Version: 0.0.1
+ * @author: guan.kai
+ * @date: 2019/8/19 22:04
  **/
 public class JsonResult implements Serializable {
 

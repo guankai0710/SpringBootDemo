@@ -5,55 +5,30 @@ import java.io.Serializable;
 /**
  * 人员信息
  *
- * @Author: guan.kai
- * @CreateTime: 2019/8/19 22:04
- * @Version: 0.0.1
+ * @author: guan.kai
+ * @date: 2019/8/29 22:15
  **/
 public class Person implements Serializable {
 
-    /**
-     * 人员id
-     **/
-    private String id;
+    private Integer id;
 
-    /**
-     * 姓名
-     **/
     private String name;
 
-    /**
-     * 部门id
-     **/
-    private String departmentId;
+    private Integer departmentId;
 
-    /**
-     * 年龄
-     **/
-    private String age;
+    private Integer age;
 
-    /**
-     * 性别
-     **/
     private String sex;
 
-    /**
-     * 联系电话
-     **/
     private String tel;
 
-    /**
-     * 地址
-     **/
     private String address;
 
-    /**
-     * 性别描述
-     **/
     private String sexDoc;
 
     private static final long serialVersionUID = 1L;
 
-    public Person(String id, String name, String departmentId, String age, String sex, String tel, String address) {
+    public Person(Integer id, String name, Integer departmentId, Integer age, String sex, String tel, String address) {
         this.id = id;
         this.name = name;
         this.departmentId = departmentId;
@@ -67,12 +42,12 @@ public class Person implements Serializable {
         super();
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id == null ? null : id.trim();
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -83,20 +58,20 @@ public class Person implements Serializable {
         this.name = name == null ? null : name.trim();
     }
 
-    public String getDepartmentId() {
+    public Integer getDepartmentId() {
         return departmentId;
     }
 
-    public void setDepartmentId(String departmentId) {
-        this.departmentId = departmentId == null ? null : departmentId.trim();
+    public void setDepartmentId(Integer departmentId) {
+        this.departmentId = departmentId;
     }
 
-    public String getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(String age) {
-        this.age = age == null ? null : age.trim();
+    public void setAge(Integer age) {
+        this.age = age;
     }
 
     public String getSex() {
@@ -129,18 +104,5 @@ public class Person implements Serializable {
 
     public void setSexDoc(String sexDoc) {
         this.sexDoc = sexDoc;
-    }
-
-    @Override
-    public String toString() {
-        return "Person{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", departmentId='" + departmentId + '\'' +
-                ", age='" + age + '\'' +
-                ", sex='" + sex + '\'' +
-                ", tel='" + tel + '\'' +
-                ", address='" + address + '\'' +
-                '}';
     }
 }

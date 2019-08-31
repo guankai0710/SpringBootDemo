@@ -5,30 +5,20 @@ import java.io.Serializable;
 /**
  * 部门信息
  *
- * @Author: guan.kai
- * @CreateTime: 2019/8/19 22:04
- * @Version: 0.0.1
+ * @author: guan.kai
+ * @date: 2019/8/29 22:15
  **/
 public class Department implements Serializable {
 
-    /**
-     * 部门id
-     **/
-    private String id;
+    private Integer id;
 
-    /**
-     * 父级部门id
-     **/
-    private String parentId;
+    private Integer parentId;
 
-    /**
-     * 部门名称
-     **/
     private String name;
 
     private static final long serialVersionUID = 1L;
 
-    public Department(String id, String parentId, String name) {
+    public Department(Integer id, Integer parentId, String name) {
         this.id = id;
         this.parentId = parentId;
         this.name = name;
@@ -38,20 +28,20 @@ public class Department implements Serializable {
         super();
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id == null ? null : id.trim();
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getParentId() {
+    public Integer getParentId() {
         return parentId;
     }
 
-    public void setParentId(String parentId) {
-        this.parentId = parentId == null ? null : parentId.trim();
+    public void setParentId(Integer parentId) {
+        this.parentId = parentId;
     }
 
     public String getName() {

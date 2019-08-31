@@ -5,9 +5,8 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * 格式校验工具类
  *
- * @Author: guan.kai
- * @CreateTime: 2019/8/28 10:45
- * @Version: 1.0.0
+ * @author: guan.kai
+ * @date: 2019/8/28 10:45
  **/
 public class CheckFormatUtil {
 
@@ -29,11 +28,9 @@ public class CheckFormatUtil {
     /**
      * 手机号码校验
      *
-     * @Author: guan.kai
-     * @CreateTime: 2019/8/28 11:04
-     * @Param: [mobileNo]
-     * @Return: boolean
-     **/
+     * @param mobileNo 手机号
+     * @return 是否匹配
+     */
     public static boolean isMobile(String mobileNo){
         return (StringUtils.isNotBlank(mobileNo) && mobileNo.matches(PATTERN_MOBILE));
     }
@@ -41,11 +38,9 @@ public class CheckFormatUtil {
     /**
      * 邮箱地址校验
      *
-     * @Author: guan.kai
-     * @CreateTime: 2019/8/28 11:06
-     * @Param: [email]
-     * @Return: boolean
-     **/
+     * @param email 邮箱地址
+     * @return 是否匹配
+     */
     public static boolean isEmail(String email){
         return (StringUtils.isNotBlank(email) && email.matches(PATTERN_EMAIL));
     }
@@ -53,11 +48,9 @@ public class CheckFormatUtil {
     /**
      * 身份证号码校验
      *
-     * @Author: guan.kai
-     * @CreateTime: 2019/8/28 11:24
-     * @Param: [idCard]
-     * @Return: boolean
-     **/
+     * @param idCard 身份证号码
+     * @return 是否匹配
+     */
     public static boolean isIdCard(String idCard){
         return (StringUtils.isNotBlank(idCard) && idCard.matches(PATTERN_IDCARD));
     }

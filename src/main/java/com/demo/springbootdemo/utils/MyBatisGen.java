@@ -12,16 +12,14 @@ import java.util.List;
 /**
  * mybatis生成代码插件启动类
  *
- * @ClassName MyBatisGen
- * @Author kai.guan
- * @CreateDate 2019/7/10 16:15
- * @Version 1.0
+ * @author kai.guan
+ * @date 2019/7/10 16:15
  **/
 public class MyBatisGen {
 
     public static void main(String[] args) throws Exception{
         //mybatis-generatorconfig.xml地址
-        String fileName = "E:\\idea_workspace_test\\springboot-demo\\src\\main\\resources\\mybatis-generatorconfig.xml";
+        String fileName = "E:\\idea_workspace_test\\SpringBootDemo\\src\\main\\resources\\mybatis-generatorconfig.xml";
         if (args.length > 0){
             fileName = args[0];
         }

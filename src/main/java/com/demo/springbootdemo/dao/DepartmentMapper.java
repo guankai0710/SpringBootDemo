@@ -6,13 +6,20 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
+/**
+ * 部门信息数据层接口
+ *
+ * @author: guan.kai
+ * @date: 2019/8/29 22:15
+ **/
 @Mapper
 public interface DepartmentMapper {
     long countByExample(DepartmentCriteria example);
 
     int deleteByExample(DepartmentCriteria example);
 
-    int deleteByPrimaryKey(String id);
+    int deleteByPrimaryKey(Integer id);
 
     int insert(Department record);
 
@@ -20,7 +27,7 @@ public interface DepartmentMapper {
 
     List<Department> selectByExample(DepartmentCriteria example);
 
-    Department selectByPrimaryKey(String id);
+    Department selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") Department record, @Param("example") DepartmentCriteria example);
 

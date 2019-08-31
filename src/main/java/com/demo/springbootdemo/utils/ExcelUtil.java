@@ -2,10 +2,7 @@ package com.demo.springbootdemo.utils;
 
 import com.demo.springbootdemo.vo.JsonResult;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,9 +17,8 @@ import java.io.UnsupportedEncodingException;
 /**
  * excel表格导出工具类
  *
- * @Author: guan.kai
- * @CreateTime: 2019/8/16 15:18
- * @Version: 1.0.0
+ * @author: guan.kai
+ * @date: 2019/8/16 15:18
  **/
 public class ExcelUtil {
 
@@ -45,11 +41,9 @@ public class ExcelUtil {
     /**
      * 导入表格数据，默认第1行为表头，第2行开始为数据，统一转成String字符串类型
      *
-     * @Author: kai.guan
-     * @CreateTime: 2019/8/19 22:49
-     * @Param: [file]
-     * @return: java.lang.String[][]
-     **/
+     * @param file 待导入文件
+     * @return 文件内容
+     */
     public static String[][] importExcel(MultipartFile file){
         Workbook wb = null;
         InputStream inputStream = null;
@@ -98,11 +92,10 @@ public class ExcelUtil {
     /**
      * 导入表格数据，默认统一转成String字符串类型
      *
-     * @Author: kai.guan
-     * @CreateTime: 2019/8/19 22:21
-     * @Param: [file：导入Excel文件, startRow：起始导入行,该参数为null时默认从表格文件第二行开始导入数据]
-     * @return: com.demo.springbootdemo.vo.JsonResult
-     **/
+     * @param file 导入Excel文件
+     * @param startRow 起始导入行,该参数为null时默认从表格文件第二行开始导入数据
+     * @return
+     */
     public static JsonResult importExcel(MultipartFile file, Integer startRow){
         JsonResult result = new JsonResult();
         result.setSuccess(false);
@@ -171,11 +164,13 @@ public class ExcelUtil {
     /**
      * 导出数据到excel表格,统一导出文本格式
      *
-     * @Author: guan.kai
-     * @CreateTime: 2019/8/16 16:05
-     * @Param: [response, fileName：导出文件名, sheetName：sheet名称, title：导出表头内容, content：导出内容, colWidth：单元格宽度]
-     * @Return: org.apache.poi.xssf.usermodel.XSSFWorkbook
-     **/
+     * @param response 响应体
+     * @param fileName 导出文件名
+     * @param sheetName sheet名称
+     * @param title 导出表头内容
+     * @param content 导出内容
+     * @param colWidth 单元格宽度
+     */
     public static void exportExcel(HttpServletResponse response, String fileName, String sheetName, String[] title, String[][] content, int[] colWidth){
         XSSFWorkbook wb = new XSSFWorkbook();
         XSSFSheet sheet = wb.createSheet(sheetName);
@@ -215,33 +210,30 @@ public class ExcelUtil {
     /**
      * 获取单元格样式
      *
-     * @Author: guan.kai
-     * @CreateTime: 2019/8/16 16:34
-     * @Param: [wb]
-     * @Return: org.apache.poi.xssf.usermodel.XSSFCellStyle
-     **/
+     * @param wb
+     * @return
+     */
     private static XSSFCellStyle getCellStyle(XSSFWorkbook wb){
         XSSFCellStyle cellStyle = wb.createCellStyle();
         //水平居中
-        cellStyle.setAlignment(XSSFCellStyle.ALIGN_CENTER);
+        cellStyle.setAlignment(CellStyle.ALIGN_CENTER);
         //垂直居中
-        cellStyle.setVerticalAlignment(XSSFCellStyle.VERTICAL_CENTER);
+        cellStyle.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
         //实线边框
-        cellStyle.setBorderTop(XSSFCellStyle.BORDER_THIN);
-        cellStyle.setBorderBottom(XSSFCellStyle.BORDER_THIN);
-        cellStyle.setBorderLeft(XSSFCellStyle.BORDER_THIN);
-        cellStyle.setBorderRight(XSSFCellStyle.BORDER_THIN);
+        cellStyle.setBorderTop(CellStyle.BORDER_THIN);
+        cellStyle.setBorderBottom(CellStyle.BORDER_THIN);
+        cellStyle.setBorderLeft(CellStyle.BORDER_THIN);
+        cellStyle.setBorderRight(CellStyle.BORDER_THIN);
         return cellStyle;
     }
 
     /**
      * 获取单元格字体
      *
-     * @Author: guan.kai
-     * @CreateTime: 2019/8/16 16:39
-     * @Param: [wb, isTitle：是否为表头]
-     * @Return: org.apache.poi.xssf.usermodel.XSSFFont
-     **/
+     * @param wb
+     * @param isTitle 是否为表头
+     * @return
+     */
     private static XSSFFont getFont(XSSFWorkbook wb, boolean isTitle){
         XSSFFont font = wb.createFont();
         font.setFontName("宋体");
@@ -252,12 +244,11 @@ public class ExcelUtil {
 
     /**
      * 发送响应流
-     *        
-     * @Author: guan.kai
-     * @CreateTime: 2019/8/16 16:56
-     * @Param: [response, fileName：文件名称]
-     * @Return: void
-     **/
+     *
+     * @param response
+     * @param wb
+     * @param fileName 文件名称
+     */
     private static void setResponseHeader(HttpServletResponse response, XSSFWorkbook wb, String fileName) {
         ServletOutputStream os = null;
         try {

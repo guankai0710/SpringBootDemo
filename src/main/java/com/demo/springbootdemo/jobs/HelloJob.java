@@ -11,9 +11,8 @@ import java.util.Date;
 /**
  * 早起问候定时任务
  *
- * @Author: guan.kai
- * @CreateTime: 2019/8/28 11:32
- * @Version: 1.0.0
+ * @author: guan.kai
+ * @date: 2019/8/28 11:32
  **/
 @EnableScheduling
 public class HelloJob {
@@ -21,12 +20,7 @@ public class HelloJob {
 
     /**
      * 每天早上8点跑
-     *
-     * @Author: guan.kai
-     * @CreateTime: 2019/8/28 11:38
-     * @Param: []
-     * @Return: void
-     **/
+     */
     @Scheduled(cron = "0 0 8 * * ?")
     public void scheduled(){
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");

@@ -12,9 +12,8 @@ import javax.servlet.http.HttpSession;
 /**
  * 登录、注册拦截器（在用户没有登录前，除登录、注册页面外，任何其他请求不能再地址栏直接访问）
  *
- * @Author: guan.kai
- * @CreateTime: 2019/8/29 17:34
- * @Version: 1.0.0
+ * @author: guan.kai
+ * @date: 2019/8/29 17:34
  **/
 @Component
 public class LoginInterceptor implements HandlerInterceptor {
@@ -22,11 +21,13 @@ public class LoginInterceptor implements HandlerInterceptor {
     /**
      * 该方法将在请求处理之前进行调用，返回false时，整个请求结束
      *
-     * @Author: guan.kai
-     * @CreateTime: 2019/8/29 17:43
-     * @Param: [request, response, handler]
-     * @Return: boolean
-     **/
+     * @author guan.kai
+     * @param request
+     * @param response
+     * @param handler
+     * @return
+     * @throws Exception
+     */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         //每一个项目对于登陆的实现逻辑都有所区别，我这里使用最简单的Session提取User来验证登陆。
@@ -48,11 +49,12 @@ public class LoginInterceptor implements HandlerInterceptor {
     /**
      * 该方法将在preHandle方法返回true时进行调用
      *
-     * @Author: guan.kai
-     * @CreateTime: 2019/8/29 17:44
-     * @Param: [request, response, handler, modelAndView]
-     * @Return: void
-     **/
+     * @param request
+     * @param response
+     * @param handler
+     * @param modelAndView
+     * @throws Exception
+     */
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
 
@@ -63,11 +65,12 @@ public class LoginInterceptor implements HandlerInterceptor {
      * 该方法将在整个请求结束之后调用
      * 主要作用是用于进行资源清理
      *
-     * @Author: guan.kai
-     * @CreateTime: 2019/8/29 17:44
-     * @Param: [request, response, handler, ex]
-     * @Return: void
-     **/
+     * @param request
+     * @param response
+     * @param handler
+     * @param ex
+     * @throws Exception
+     */
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
 

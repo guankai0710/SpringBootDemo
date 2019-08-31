@@ -6,13 +6,20 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
+/**
+ * 人员信息数据层接口
+ *
+ * @author: guan.kai
+ * @date: 2019/8/29 22:15
+ **/
 @Mapper
 public interface PersonMapper {
     long countByExample(PersonCriteria example);
 
     int deleteByExample(PersonCriteria example);
 
-    int deleteByPrimaryKey(String id);
+    int deleteByPrimaryKey(Integer id);
 
     int insert(Person record);
 
@@ -20,7 +27,7 @@ public interface PersonMapper {
 
     List<Person> selectByExample(PersonCriteria example);
 
-    Person selectByPrimaryKey(String id);
+    Person selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") Person record, @Param("example") PersonCriteria example);
 

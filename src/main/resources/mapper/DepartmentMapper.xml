@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.demo.springbootdemo.dao.DepartmentMapper">
+
   <resultMap id="BaseResultMap" type="com.demo.springbootdemo.entity.Department">
     <constructor>
-      <idArg column="ID" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="PARENT_ID" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <idArg column="ID" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="PARENT_ID" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
     </constructor>
   </resultMap>
+
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -37,6 +39,7 @@
       </foreach>
     </where>
   </sql>
+
   <sql id="Update_By_Example_Where_Clause">
     <where>
       <foreach collection="example.oredCriteria" item="criteria" separator="or">
@@ -66,9 +69,11 @@
       </foreach>
     </where>
   </sql>
+
   <sql id="Base_Column_List">
     ID, PARENT_ID, NAME
   </sql>
+
   <select id="selectByExample" parameterType="com.demo.springbootdemo.entity.DepartmentCriteria" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -83,28 +88,31 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from demo_department
-    where ID = #{id,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from demo_department
-    where ID = #{id,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
   </delete>
+
   <delete id="deleteByExample" parameterType="com.demo.springbootdemo.entity.DepartmentCriteria">
     delete from demo_department
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
+
   <insert id="insert" parameterType="com.demo.springbootdemo.entity.Department">
-    insert into demo_department (ID, PARENT_ID, NAME
-      )
-    values (#{id,jdbcType=VARCHAR}, #{parentId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}
-      )
+    insert into demo_department (ID, PARENT_ID, NAME)
+    values (#{id,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR})
   </insert>
+
   <insert id="insertSelective" parameterType="com.demo.springbootdemo.entity.Department">
     insert into demo_department
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -120,30 +128,32 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        #{id,jdbcType=VARCHAR},
+        #{id,jdbcType=INTEGER},
       </if>
       <if test="parentId != null">
-        #{parentId,jdbcType=VARCHAR},
+        #{parentId,jdbcType=INTEGER},
       </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
+
   <select id="countByExample" parameterType="com.demo.springbootdemo.entity.DepartmentCriteria" resultType="java.lang.Long">
     select count(*) from demo_department
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
+
   <update id="updateByExampleSelective" parameterType="map">
     update demo_department
     <set>
       <if test="record.id != null">
-        ID = #{record.id,jdbcType=VARCHAR},
+        ID = #{record.id,jdbcType=INTEGER},
       </if>
       <if test="record.parentId != null">
-        PARENT_ID = #{record.parentId,jdbcType=VARCHAR},
+        PARENT_ID = #{record.parentId,jdbcType=INTEGER},
       </if>
       <if test="record.name != null">
         NAME = #{record.name,jdbcType=VARCHAR},
@@ -153,31 +163,35 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
+
   <update id="updateByExample" parameterType="map">
     update demo_department
-    set ID = #{record.id,jdbcType=VARCHAR},
-      PARENT_ID = #{record.parentId,jdbcType=VARCHAR},
+    set ID = #{record.id,jdbcType=INTEGER},
+      PARENT_ID = #{record.parentId,jdbcType=INTEGER},
       NAME = #{record.name,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
+
   <update id="updateByPrimaryKeySelective" parameterType="com.demo.springbootdemo.entity.Department">
     update demo_department
     <set>
       <if test="parentId != null">
-        PARENT_ID = #{parentId,jdbcType=VARCHAR},
+        PARENT_ID = #{parentId,jdbcType=INTEGER},
       </if>
       <if test="name != null">
         NAME = #{name,jdbcType=VARCHAR},
       </if>
     </set>
-    where ID = #{id,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
   </update>
+
   <update id="updateByPrimaryKey" parameterType="com.demo.springbootdemo.entity.Department">
     update demo_department
-    set PARENT_ID = #{parentId,jdbcType=VARCHAR},
+    set PARENT_ID = #{parentId,jdbcType=INTEGER},
       NAME = #{name,jdbcType=VARCHAR}
-    where ID = #{id,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
   </update>
+
 </mapper>

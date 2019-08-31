@@ -10,9 +10,8 @@ import java.util.*;
 /**
  * 自定义集合工具类
  *
- * @Author: guan.kai
- * @CreateTime: 2019/8/19 23:12
- * @Version: 0.0.1
+ * @author: guan.kai
+ * @date: 2019/8/19 23:12
  **/
 public class MyCollectionsUitl {
 
@@ -27,11 +26,10 @@ public class MyCollectionsUitl {
     /**
      * 抽取某个属性，返回list
      *
-     * @Author: guan.kai
-     * @CreateTime: 2019/8/28 14:24
-     * @Param: [collection, propertyName：属性名]
-     * @Return: java.util.List
-     **/
+     * @param collection 待处理集合
+     * @param propertyName 属性名
+     * @return
+     */
     public static List extractToList(Collection collection, String propertyName){
         if (collection != null && StringUtils.isNotBlank(propertyName)){
             List list = new ArrayList(collection.size());
@@ -53,11 +51,11 @@ public class MyCollectionsUitl {
     /**
      * 抽取某个属性，以分隔符拼接成字符串返回,cutFlag为null或者空字符串时，默认使用","逗号分隔
      *
-     * @Author: guan.kai
-     * @CreateTime: 2019/8/28 14:25
-     * @Param: [collection, propertyName：属性名, cutFlag：分隔符]
-     * @Return: java.lang.String
-     **/
+     * @param collection 待处理集合
+     * @param propertyName 属性名
+     * @param cutFlag 分隔符
+     * @return
+     */
     public static String extractToString(Collection collection, String propertyName, String cutFlag){
         if (collection != null && StringUtils.isNotBlank(propertyName)){
             StringBuilder str = new StringBuilder();
@@ -82,11 +80,10 @@ public class MyCollectionsUitl {
     /**
      * 抽取某个属性，返回一个 以该属性为key、对应对象为value的map集合
      *
-     * @Author: guan.kai
-     * @CreateTime: 2019/8/28 14:26
-     * @Param: [collection, propertyName]
-     * @Return: java.util.Map
-     **/
+     * @param collection 待处理集合
+     * @param propertyName 属性名
+     * @return
+     */
     public static Map extractToMap(Collection collection, String propertyName){
         if (collection != null && StringUtils.isNotBlank(propertyName)){
             Map map = new HashMap(collection.size());
@@ -108,11 +105,11 @@ public class MyCollectionsUitl {
     /**
      * 根据属性抽取，返回map
      *
-     * @Author: guan.kai
-     * @CreateTime: 2019/8/28 14:28
-     * @Param: [collection, keyPropertyName, valuePropertyName]
-     * @Return: java.util.Map
-     **/
+     * @param collection 待处理集合
+     * @param keyPropertyName 作为key的属性名
+     * @param valuePropertyName 作为value的属性名
+     * @return
+     */
     public static Map extractToMap(Collection collection, String keyPropertyName, String valuePropertyName){
         if (collection != null && StringUtils.isNotBlank(keyPropertyName) && StringUtils.isNotBlank(valuePropertyName)){
             Map map = new HashMap(collection.size());
@@ -136,11 +133,11 @@ public class MyCollectionsUitl {
     /**
      * 截取list集合，根据截取大小返回多段list
      *
-     * @Author: kai.guan
-     * @CreateTime: 2019/8/19 23:55
-     * @Param: [list, subSize]
-     * @return: java.util.List<java.util.List<T>>
-     **/
+     * @param list 待处理集合
+     * @param subSize 截取大小
+     * @param <T>
+     * @return
+     */
     public static <T> List<List<T>> subList(List<T> list, int subSize){
         if (list != null){
             List<List<T>> resultList = new ArrayList<>();
