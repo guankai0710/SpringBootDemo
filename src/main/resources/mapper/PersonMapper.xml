@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.demo.springbootdemo.dao.PersonMapper">
-
   <resultMap id="BaseResultMap" type="com.demo.springbootdemo.entity.Person">
     <constructor>
       <idArg column="ID" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="ACCOUNT" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="PASSWORD" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="DEPARTMENT_ID" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="AGE" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="SEX" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="TEL" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="EMAIL" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="ADDRESS" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="DELETED" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="CREATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
     </constructor>
   </resultMap>
-
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -43,7 +46,6 @@
       </foreach>
     </where>
   </sql>
-
   <sql id="Update_By_Example_Where_Clause">
     <where>
       <foreach collection="example.oredCriteria" item="criteria" separator="or">
@@ -74,9 +76,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    ID, NAME, DEPARTMENT_ID, AGE, SEX, TEL, ADDRESS
+    ID, NAME, ACCOUNT, PASSWORD, DEPARTMENT_ID, AGE, SEX, TEL, EMAIL, ADDRESS, DELETED, 
+    CREATE_TIME
   </sql>
-
   <select id="selectByExample" parameterType="com.demo.springbootdemo.entity.PersonCriteria" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -91,7 +93,6 @@
       order by ${orderByClause}
     </if>
   </select>
-
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -102,20 +103,22 @@
     delete from demo_person
     where ID = #{id,jdbcType=INTEGER}
   </delete>
-
   <delete id="deleteByExample" parameterType="com.demo.springbootdemo.entity.PersonCriteria">
     delete from demo_person
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-
   <insert id="insert" parameterType="com.demo.springbootdemo.entity.Person">
-    insert into demo_person (ID, NAME, DEPARTMENT_ID, AGE, SEX, TEL, ADDRESS)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{departmentId,jdbcType=INTEGER},
-      #{age,jdbcType=INTEGER}, #{sex,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR})
+    insert into demo_person (ID, NAME, ACCOUNT, 
+      PASSWORD, DEPARTMENT_ID, AGE, 
+      SEX, TEL, EMAIL, ADDRESS, 
+      DELETED, CREATE_TIME)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{account,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{departmentId,jdbcType=INTEGER}, #{age,jdbcType=INTEGER}, 
+      #{sex,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{deleted,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP})
   </insert>
-
   <insert id="insertSelective" parameterType="com.demo.springbootdemo.entity.Person">
     insert into demo_person
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -124,6 +127,12 @@
       </if>
       <if test="name != null">
         NAME,
+      </if>
+      <if test="account != null">
+        ACCOUNT,
+      </if>
+      <if test="password != null">
+        PASSWORD,
       </if>
       <if test="departmentId != null">
         DEPARTMENT_ID,
@@ -137,8 +146,17 @@
       <if test="tel != null">
         TEL,
       </if>
+      <if test="email != null">
+        EMAIL,
+      </if>
       <if test="address != null">
         ADDRESS,
+      </if>
+      <if test="deleted != null">
+        DELETED,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -147,6 +165,12 @@
       </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="account != null">
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
       </if>
       <if test="departmentId != null">
         #{departmentId,jdbcType=INTEGER},
@@ -160,19 +184,26 @@
       <if test="tel != null">
         #{tel,jdbcType=VARCHAR},
       </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
       <if test="address != null">
         #{address,jdbcType=VARCHAR},
       </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
     </trim>
   </insert>
-
   <select id="countByExample" parameterType="com.demo.springbootdemo.entity.PersonCriteria" resultType="java.lang.Long">
     select count(*) from demo_person
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-
   <update id="updateByExampleSelective" parameterType="map">
     update demo_person
     <set>
@@ -181,6 +212,12 @@
       </if>
       <if test="record.name != null">
         NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.account != null">
+        ACCOUNT = #{record.account,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null">
+        PASSWORD = #{record.password,jdbcType=VARCHAR},
       </if>
       <if test="record.departmentId != null">
         DEPARTMENT_ID = #{record.departmentId,jdbcType=INTEGER},
@@ -194,34 +231,52 @@
       <if test="record.tel != null">
         TEL = #{record.tel,jdbcType=VARCHAR},
       </if>
+      <if test="record.email != null">
+        EMAIL = #{record.email,jdbcType=VARCHAR},
+      </if>
       <if test="record.address != null">
         ADDRESS = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deleted != null">
+        DELETED = #{record.deleted,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-
   <update id="updateByExample" parameterType="map">
     update demo_person
     set ID = #{record.id,jdbcType=INTEGER},
       NAME = #{record.name,jdbcType=VARCHAR},
+      ACCOUNT = #{record.account,jdbcType=VARCHAR},
+      PASSWORD = #{record.password,jdbcType=VARCHAR},
       DEPARTMENT_ID = #{record.departmentId,jdbcType=INTEGER},
       AGE = #{record.age,jdbcType=INTEGER},
       SEX = #{record.sex,jdbcType=VARCHAR},
       TEL = #{record.tel,jdbcType=VARCHAR},
-      ADDRESS = #{record.address,jdbcType=VARCHAR}
+      EMAIL = #{record.email,jdbcType=VARCHAR},
+      ADDRESS = #{record.address,jdbcType=VARCHAR},
+      DELETED = #{record.deleted,jdbcType=INTEGER},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-
   <update id="updateByPrimaryKeySelective" parameterType="com.demo.springbootdemo.entity.Person">
     update demo_person
     <set>
       <if test="name != null">
         NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="account != null">
+        ACCOUNT = #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        PASSWORD = #{password,jdbcType=VARCHAR},
       </if>
       <if test="departmentId != null">
         DEPARTMENT_ID = #{departmentId,jdbcType=INTEGER},
@@ -235,22 +290,43 @@
       <if test="tel != null">
         TEL = #{tel,jdbcType=VARCHAR},
       </if>
+      <if test="email != null">
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
       <if test="address != null">
         ADDRESS = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null">
+        DELETED = #{deleted,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where ID = #{id,jdbcType=INTEGER}
   </update>
-
   <update id="updateByPrimaryKey" parameterType="com.demo.springbootdemo.entity.Person">
     update demo_person
     set NAME = #{name,jdbcType=VARCHAR},
+      ACCOUNT = #{account,jdbcType=VARCHAR},
+      PASSWORD = #{password,jdbcType=VARCHAR},
       DEPARTMENT_ID = #{departmentId,jdbcType=INTEGER},
       AGE = #{age,jdbcType=INTEGER},
       SEX = #{sex,jdbcType=VARCHAR},
       TEL = #{tel,jdbcType=VARCHAR},
-      ADDRESS = #{address,jdbcType=VARCHAR}
+      EMAIL = #{email,jdbcType=VARCHAR},
+      ADDRESS = #{address,jdbcType=VARCHAR},
+      DELETED = #{deleted,jdbcType=INTEGER},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
     where ID = #{id,jdbcType=INTEGER}
   </update>
+
+  <!-- 根据用户账号获取用户数据 -->
+  <select id="getByAccount" resultType="com.demo.springbootdemo.entity.Person">
+    select
+    <include refid="Base_Column_List" />
+    from demo_person
+    where ACCOUNT = #{account,jdbcType=VARCHAR}
+  </select>
 
 </mapper>
