@@ -32,7 +32,7 @@ public class IndexController {
     @GetMapping("/index")
     public String index(HttpServletRequest request, Model model){
         HttpSession session = request.getSession();
-        Person user = (Person) session.getAttribute("user");
+        Person user = (Person) session.getAttribute("person");
         model.addAttribute("userName",user.getName());
         return "index";
     }

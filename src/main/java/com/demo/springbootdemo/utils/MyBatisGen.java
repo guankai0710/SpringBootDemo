@@ -13,7 +13,7 @@ import java.util.List;
  * mybatis生成代码插件启动类
  *
  * @author kai.guan
- * @date 2019/7/10 16:15
+ * @date 2019/bootstrap/10 16:15
  **/
 public class MyBatisGen {
 

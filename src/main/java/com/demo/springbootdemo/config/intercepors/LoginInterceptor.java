@@ -33,7 +33,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         //每一个项目对于登陆的实现逻辑都有所区别，我这里使用最简单的Session提取User来验证登陆。
         HttpSession session = request.getSession();
         //这里的Person是登陆时放入session的
-        Person user = (Person) session.getAttribute("user");
+        Person user = (Person) session.getAttribute("person");
         //如果session中没有user，表示没登陆
         if (user == null){
             //这个方法返回false表示忽略当前请求，如果一个用户调用了需要登陆才能使用的接口，如果他没有登陆这里会直接忽略掉

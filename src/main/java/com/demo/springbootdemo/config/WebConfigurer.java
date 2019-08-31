@@ -33,7 +33,15 @@ public class WebConfigurer implements WebMvcConfigurer {
         // excludePathPatterns("/login", "/register") 表示除了登陆与注册之外，因为登陆注册不需要登陆也可以访问
         registry.addInterceptor(loginInterceptor)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/login", "/register","/css/**","/js/**","/images/**","/fonts/**");
+                .excludePathPatterns(
+                        "/login",
+                        "/register",
+                        "/css/**",
+                        "/js/**",
+                        "/images/**",
+                        "/fonts/**",
+                        "/bootstrap/**"
+                );
 //        super.addInterceptors(registry);    //较新Spring Boot的版本中这里可以直接去掉，否则会报错
     }
 

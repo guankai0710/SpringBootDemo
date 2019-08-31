@@ -50,7 +50,7 @@ public class LoginController {
         Person person = personService.getByAccount(account);
         if (person != null && password.equals(person.getPassword())){
             HttpSession session = request.getSession();
-            session.setAttribute("user",person);
+            session.setAttribute("person",person);
             result.setSuccess(true);
             result.setMsg("登录成功！");
         }else {
@@ -94,5 +94,18 @@ public class LoginController {
         result.setSuccess(true);
         result.setMsg("注册成功！");
         return result;
+    }
+
+    /**
+     * 退出登录
+     *
+     * @param request
+     * @return
+     */
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        session.removeAttribute("person");
+        return "login";
     }
 }

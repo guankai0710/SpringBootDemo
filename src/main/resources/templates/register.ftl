@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <title>注册页</title>
-    <link href="${path}/css/login/style.css" rel="stylesheet" type="text/css" />
-    <link href="${path}/css/login/fontawesome-all.css" rel="stylesheet" />
+    <link type="text/css" href="${path}/css/login/style.css" rel="stylesheet" />
+    <link type="text/css" href="${path}/css/login/fontawesome-all.css" rel="stylesheet" />
 
     <script src="${path}/js/jquery-3.4.1.min.js" ></script>
 </head>

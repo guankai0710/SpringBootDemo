@@ -1,5 +1,6 @@
 package com.demo.springbootdemo.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.demo.springbootdemo.entity.Person;
 import com.demo.springbootdemo.enumeration.SexEnum;
 import com.demo.springbootdemo.exceptions.MyOwnRuntimeException;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -28,6 +31,20 @@ public class PersonController {
 
     @Resource
     private IPersonService personService;
+
+    /**
+     * 我的资料
+     *
+     * @param request
+     * @return
+     */
+    @GetMapping("/mydata")
+    @ResponseBody
+    public String mydata(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        Person person = (Person) session.getAttribute("person");
+        return JSON.toJSONString(person);
+    }
 
     @GetMapping("/show")
     @ResponseBody
