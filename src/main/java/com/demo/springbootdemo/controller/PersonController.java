@@ -1,14 +1,13 @@
 package com.demo.springbootdemo.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.demo.springbootdemo.entity.Person;
 import com.demo.springbootdemo.enumeration.SexEnum;
 import com.demo.springbootdemo.exceptions.MyOwnRuntimeException;
 import com.demo.springbootdemo.service.IPersonService;
-import com.demo.springbootdemo.utils.MyCollectionsUitl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -32,8 +31,8 @@ public class PersonController {
 
     @GetMapping("/show")
     @ResponseBody
-    public String show(){
-        Person person = personService.getById(1);
+    public String show(Model model, String id){
+        Person person = personService.getById(Integer.valueOf(id));
         if (person != null){
             try {
                 person.setSexDoc(SexEnum.getByValue(person.getSex()).getDoc());
@@ -41,15 +40,16 @@ public class PersonController {
                 logger.error(e.getMessage());
             }
         }
-        return JSON.toJSONString(person);
+        model.addAttribute("person", person);
+        return "";
     }
 
     @GetMapping("/all")
     @ResponseBody
-    public String all(){
+    public String all(Model model){
         List<Person> personList = personService.selectAll();
-        List<List<Person>> subList = MyCollectionsUitl.subList(personList, 2);
-        return JSON.toJSONString(subList);
+        model.addAttribute("personList", personList);
+        return "";
     }
 
 }

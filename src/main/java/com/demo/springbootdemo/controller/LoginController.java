@@ -5,13 +5,13 @@ import com.demo.springbootdemo.service.IPersonService;
 import com.demo.springbootdemo.utils.CheckFormatUtil;
 import com.demo.springbootdemo.vo.JsonResult;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * 登录、注册
@@ -20,7 +20,6 @@ import javax.annotation.Resource;
  * @date: 2019/8/30 9:13
  **/
 @Controller
-@SessionAttributes("user")
 public class LoginController {
 
     @Resource
@@ -39,18 +38,19 @@ public class LoginController {
     /**
      * 登录操作
      *
-     * @param model
+     * @param request
      * @param account 账号
      * @param password 密码
      * @return
      */
     @PostMapping("/login")
     @ResponseBody
-    public JsonResult login(Model model, String account, String password){
+    public JsonResult login(HttpServletRequest request, String account, String password){
         JsonResult result = new JsonResult();
         Person person = personService.getByAccount(account);
         if (person != null && password.equals(person.getPassword())){
-            model.addAttribute("user",person);
+            HttpSession session = request.getSession();
+            session.setAttribute("user",person);
             result.setSuccess(true);
             result.setMsg("登录成功！");
         }else {
@@ -73,21 +73,20 @@ public class LoginController {
     /**
      * 注册操作
      *
-     * @param model
      * @param account 账号
      * @param password 密码
      * @return
      */
     @PostMapping("/register")
     @ResponseBody
-    public JsonResult register(Model model, String account, String password){
+    public JsonResult register(String account, String password){
         JsonResult result = new JsonResult();
         Person person = personService.getByAccount(account);
         if (person != null){
             result.setMsg("该账号已存在！");
             return result;
         }
-        if (CheckFormatUtil.isAccount(password)){
+        if (!CheckFormatUtil.isAccount(password)){
             result.setMsg("密码必须由8-18位字母加数字组成！");
             return result;
         }
