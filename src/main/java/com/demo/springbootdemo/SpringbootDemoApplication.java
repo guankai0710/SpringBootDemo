@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @date: 2019/8/10 0:53
  **/
 @SpringBootApplication
-@EnableTransactionManagement
 @MapperScan("com.demo.springbootdemo.dao")
 public class SpringbootDemoApplication extends SpringBootServletInitializer {
 

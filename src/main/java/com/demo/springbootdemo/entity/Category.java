@@ -3,7 +3,7 @@ package com.demo.springbootdemo.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Department implements Serializable {
+public class Category implements Serializable {
     private Integer id;
 
     private Integer parentId;
@@ -16,7 +16,7 @@ public class Department implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Department(Integer id, Integer parentId, String name, Integer deleted, Date createTime) {
+    public Category(Integer id, Integer parentId, String name, Integer deleted, Date createTime) {
         this.id = id;
         this.parentId = parentId;
         this.name = name;
@@ -24,7 +24,7 @@ public class Department implements Serializable {
         this.createTime = createTime;
     }
 
-    public Department() {
+    public Category() {
         super();
     }
 

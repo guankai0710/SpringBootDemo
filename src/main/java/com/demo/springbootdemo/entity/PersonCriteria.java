@@ -375,66 +375,6 @@ public class PersonCriteria {
             return (Criteria) this;
         }
 
-        public Criteria andDepartmentIdIsNull() {
-            addCriterion("DEPARTMENT_ID is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andDepartmentIdIsNotNull() {
-            addCriterion("DEPARTMENT_ID is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andDepartmentIdEqualTo(Integer value) {
-            addCriterion("DEPARTMENT_ID =", value, "departmentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andDepartmentIdNotEqualTo(Integer value) {
-            addCriterion("DEPARTMENT_ID <>", value, "departmentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andDepartmentIdGreaterThan(Integer value) {
-            addCriterion("DEPARTMENT_ID >", value, "departmentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andDepartmentIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("DEPARTMENT_ID >=", value, "departmentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andDepartmentIdLessThan(Integer value) {
-            addCriterion("DEPARTMENT_ID <", value, "departmentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andDepartmentIdLessThanOrEqualTo(Integer value) {
-            addCriterion("DEPARTMENT_ID <=", value, "departmentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andDepartmentIdIn(List<Integer> values) {
-            addCriterion("DEPARTMENT_ID in", values, "departmentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andDepartmentIdNotIn(List<Integer> values) {
-            addCriterion("DEPARTMENT_ID not in", values, "departmentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andDepartmentIdBetween(Integer value1, Integer value2) {
-            addCriterion("DEPARTMENT_ID between", value1, value2, "departmentId");
-            return (Criteria) this;
-        }
-
-        public Criteria andDepartmentIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("DEPARTMENT_ID not between", value1, value2, "departmentId");
-            return (Criteria) this;
-        }
-
         public Criteria andAgeIsNull() {
             addCriterion("AGE is null");
             return (Criteria) this;

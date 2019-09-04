@@ -3,12 +3,6 @@ package com.demo.springbootdemo.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-/**
- * 人员信息
- *
- * @author: guan.kai
- * @date: 2019/8/29 22:15
- **/
 public class Person implements Serializable {
     private Integer id;
 
@@ -17,8 +11,6 @@ public class Person implements Serializable {
     private String account;
 
     private String password;
-
-    private Integer departmentId;
 
     private Integer age;
 
@@ -38,12 +30,11 @@ public class Person implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Person(Integer id, String name, String account, String password, Integer departmentId, Integer age, String sex, String tel, String email, String address, Integer deleted, Date createTime) {
+    public Person(Integer id, String name, String account, String password, Integer age, String sex, String tel, String email, String address, Integer deleted, Date createTime) {
         this.id = id;
         this.name = name;
         this.account = account;
         this.password = password;
-        this.departmentId = departmentId;
         this.age = age;
         this.sex = sex;
         this.tel = tel;
@@ -87,14 +78,6 @@ public class Person implements Serializable {
 
     public void setPassword(String password) {
         this.password = password == null ? null : password.trim();
-    }
-
-    public Integer getDepartmentId() {
-        return departmentId;
-    }
-
-    public void setDepartmentId(Integer departmentId) {
-        this.departmentId = departmentId;
     }
 
     public Integer getAge() {

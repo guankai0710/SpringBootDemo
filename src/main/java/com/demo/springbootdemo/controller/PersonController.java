@@ -1,9 +1,6 @@
 package com.demo.springbootdemo.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.demo.springbootdemo.entity.Person;
-import com.demo.springbootdemo.enumeration.SexEnum;
-import com.demo.springbootdemo.exceptions.MyOwnRuntimeException;
 import com.demo.springbootdemo.service.IPersonService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,12 +8,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 /**
  * 用户操作接口
@@ -36,37 +31,16 @@ public class PersonController {
      * 我的资料
      *
      * @param request
+     * @param model
      * @return
      */
     @GetMapping("/mydata")
-    @ResponseBody
-    public String mydata(HttpServletRequest request){
+    public String mydata(HttpServletRequest request, Model model){
         HttpSession session = request.getSession();
         Person person = (Person) session.getAttribute("person");
-        return JSON.toJSONString(person);
-    }
-
-    @GetMapping("/show")
-    @ResponseBody
-    public String show(Model model, String id){
-        Person person = personService.getById(Integer.valueOf(id));
-        if (person != null){
-            try {
-                person.setSexDoc(SexEnum.getByValue(person.getSex()).getDoc());
-            } catch (MyOwnRuntimeException e) {
-                logger.error(e.getMessage());
-            }
-        }
-        model.addAttribute("person", person);
+        model.addAttribute("person", personService.getByAccount(person.getAccount()));
         return "";
     }
 
-    @GetMapping("/all")
-    @ResponseBody
-    public String all(Model model){
-        List<Person> personList = personService.selectAll();
-        model.addAttribute("personList", personList);
-        return "";
-    }
 
 }

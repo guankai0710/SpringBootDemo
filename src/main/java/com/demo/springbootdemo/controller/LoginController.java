@@ -54,7 +54,6 @@ public class LoginController {
             result.setSuccess(true);
             result.setMsg("登录成功！");
         }else {
-            result.setSuccess(false);
             result.setMsg("用户名密码错误！！");
         }
         return result;

@@ -7,12 +7,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-/**
- * 部门信息数据层接口
- *
- * @author: guan.kai
- * @date: 2019/8/29 22:15
- **/
 @Mapper
 public interface DepartmentMapper {
     long countByExample(DepartmentCriteria example);

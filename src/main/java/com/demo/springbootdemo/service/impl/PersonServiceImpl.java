@@ -5,6 +5,7 @@ import com.demo.springbootdemo.entity.Person;
 import com.demo.springbootdemo.entity.PersonCriteria;
 import com.demo.springbootdemo.service.IPersonService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -17,6 +18,7 @@ import java.util.List;
  * @date: 2019/8/14 22:21
  **/
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class PersonServiceImpl implements IPersonService {
 
     @Resource

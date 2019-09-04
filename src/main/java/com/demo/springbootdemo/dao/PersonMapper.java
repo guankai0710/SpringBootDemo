@@ -7,12 +7,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-/**
- * 人员信息数据层接口
- *
- * @author: guan.kai
- * @date: 2019/8/29 22:15
- **/
 @Mapper
 public interface PersonMapper {
     long countByExample(PersonCriteria example);
@@ -44,5 +38,4 @@ public interface PersonMapper {
      * @return
      */
     Person getByAccount(String account);
-
 }

@@ -4,6 +4,8 @@ import org.mybatis.generator.api.MyBatisGenerator;
 import org.mybatis.generator.config.Configuration;
 import org.mybatis.generator.config.xml.ConfigurationParser;
 import org.mybatis.generator.internal.DefaultShellCallback;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -16,6 +18,8 @@ import java.util.List;
  * @date 2019/bootstrap/10 16:15
  **/
 public class MyBatisGen {
+
+    private static final Logger logger = LoggerFactory.getLogger(MyBatisGen.class);
 
     public static void main(String[] args) throws Exception{
         //mybatis-generatorconfig.xml地址
