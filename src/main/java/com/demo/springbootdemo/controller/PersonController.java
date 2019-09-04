@@ -1,11 +1,13 @@
 package com.demo.springbootdemo.controller;
 
 import com.demo.springbootdemo.entity.Person;
+import com.demo.springbootdemo.enumeration.SexEnum;
+import com.demo.springbootdemo.exceptions.MyOwnRuntimeException;
 import com.demo.springbootdemo.service.IPersonService;
+import com.demo.springbootdemo.vo.JsonResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -31,15 +33,25 @@ public class PersonController {
      * 我的资料
      *
      * @param request
-     * @param model
      * @return
      */
     @GetMapping("/mydata")
-    public String mydata(HttpServletRequest request, Model model){
+    public JsonResult mydata(HttpServletRequest request){
+        JsonResult result = new JsonResult();
         HttpSession session = request.getSession();
-        Person person = (Person) session.getAttribute("person");
-        model.addAttribute("person", personService.getByAccount(person.getAccount()));
-        return "";
+        Person user = (Person) session.getAttribute("person");
+        Person person = personService.getByAccount(user.getAccount());
+        if (person == null){
+            result.setMsg("获取失败！");
+        }
+        try {
+            person.setSexDoc(SexEnum.getByValue(person.getSex()).getDoc());
+        } catch (MyOwnRuntimeException e) {
+            logger.error(e.getMessage());
+        }
+        result.setSuccess(true);
+        result.setObj(person);
+        return result;
     }
 
 
