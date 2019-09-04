@@ -36,7 +36,7 @@ public class CheckFormatUtil {
     /**
      * 身份证号的尾数规则
      */
-    private static final String[] IDENTITY_MANTISSA = {"1", "0", "X", "9", "8", "7", "6", "5", "4", "3", "2"};
+    private static final String[] IDENTITY_MANTISSA = {"X", "9", "8", "7", "6", "5", "4", "3", "2", "1", "0"};
 
 
     /**
