@@ -2,6 +2,8 @@ package com.demo.springbootdemo.utils;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.stream.IntStream;
+
 /**
  * 格式校验工具类
  *
@@ -20,10 +22,22 @@ public class CheckFormatUtil {
      * 邮箱号码正则表达式
      **/
     public static final String PATTERN_EMAIL = "^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$";
+
     /**
-     * 身份证号码正则表达式
+     * 身份证号码正则表达式（18位）
      **/
-    public static final String PATTERN_IDCARD = "^[1-9]\\d{7}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{3}$|^[1-9]\\d{5}[1-9]\\d{3}((0\\d)|(1[0-2]))(([0|1|2]\\d)|3[0-1])\\d{3}([0-9]|X)$";
+    public static final String PATTERN_IDCARD = "^[0-9]{17}[0-9Xx]{1}$";
+
+    /**
+     * 身份证校验码
+     */
+    private static final int[] COEFFICIENT_ARRAY = {7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2};
+
+    /**
+     * 身份证号的尾数规则
+     */
+    private static final String[] IDENTITY_MANTISSA = {"1", "0", "X", "9", "8", "7", "6", "5", "4", "3", "2"};
+
 
     /**
      * 密码正则表达式（8-18位字母加数字）
@@ -51,13 +65,31 @@ public class CheckFormatUtil {
     }
 
     /**
-     * 身份证号码校验
+     * 身份证号码校验（仅对18位新居民身份证）
      *
      * @param idCard 身份证号码
      * @return 是否匹配
      */
     public static boolean isIdCard(String idCard){
-        return (StringUtils.isNotBlank(idCard) && idCard.matches(PATTERN_IDCARD));
+        if (StringUtils.isBlank(idCard)) {
+            return false;
+        }
+        if (!idCard.matches(PATTERN_IDCARD)) {
+            return false;
+        }
+        char[] chars = idCard.toCharArray();
+        long sum = IntStream.range(0, 17).map(index -> {
+            char ch = chars[index];
+            int digit = Character.digit(ch, 10);
+            int coefficient = COEFFICIENT_ARRAY[index];
+            return digit * coefficient;
+        }).summaryStatistics().getSum();
+        // 计算出的尾数索引
+        int mantissaIndex = (int) (sum % 11);
+        String mantissa = IDENTITY_MANTISSA[mantissaIndex];
+        String lastChar = idCard.substring(17);
+
+        return lastChar.equalsIgnoreCase(mantissa);
     }
 
     /**
