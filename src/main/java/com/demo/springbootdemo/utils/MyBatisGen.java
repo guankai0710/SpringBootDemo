@@ -2,6 +2,8 @@ package com.demo.springbootdemo.utils;
 
 import org.mybatis.generator.api.MyBatisGenerator;
 import org.mybatis.generator.config.Configuration;
+import org.mybatis.generator.config.Context;
+import org.mybatis.generator.config.TableConfiguration;
 import org.mybatis.generator.config.xml.ConfigurationParser;
 import org.mybatis.generator.internal.DefaultShellCallback;
 import org.slf4j.Logger;
@@ -35,5 +37,13 @@ public class MyBatisGen {
         DefaultShellCallback callback = new DefaultShellCallback(overwrite);
         MyBatisGenerator myBatisGenerator = new MyBatisGenerator(config, callback, warnings);
         myBatisGenerator.generate(null);
+        List<Context> contexts = config.getContexts();
+        for (Context context : contexts) {
+            for (TableConfiguration tableConfiguration : context.getTableConfigurations()) {
+                logger.info("表名：{},  类名：{}",
+                        tableConfiguration.getTableName(),
+                        tableConfiguration.getDomainObjectName());
+            }
+        }
     }
 }
