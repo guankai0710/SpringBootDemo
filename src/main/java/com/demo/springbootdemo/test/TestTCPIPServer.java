@@ -146,7 +146,7 @@ public class TestTCPIPServer {
             lenStr = lenStr.substring(lenStr.length() - LEN_LENGHT);
             System.arraycopy(lenStr.getBytes(), 0, retMsg, 0, LEN_LENGHT);
             System.arraycopy(msg, 0, retMsg, LEN_LENGHT, msg.length);
-            LOGGER.error("=======服务端返回报文=======\n{}", new String(retMsg, DEFULT_ENCODING));
+            LOGGER.info("=======服务端返回报文=======\n{}", new String(retMsg, DEFULT_ENCODING));
         } catch (Exception e){
             LOGGER.error(e.getMessage(), e);
         }
