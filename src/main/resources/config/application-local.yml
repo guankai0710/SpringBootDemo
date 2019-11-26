@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 8080
 
 spring:
   datasource:
@@ -8,8 +8,3 @@ spring:
     username: root
     password: root
 
-logging:
-  config: classpath:logback-spring.xml
-
-mybatis:
-  mapper-locations: classpath:mapper/*.xml

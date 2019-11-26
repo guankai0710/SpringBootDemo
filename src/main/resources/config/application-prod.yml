@@ -8,8 +8,3 @@ spring:
     username: root
     password: root
 
-logging:
-  config: classpath:logback-spring.xml
-
-mybatis:
-  mapper-locations: classpath:mapper/*.xml

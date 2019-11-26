@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8081
 
 spring:
   ## 数据源
@@ -9,23 +9,3 @@ spring:
     username: root
     password: root
 
-  ## freemarker模板
-  freemarker:
-    template-loader-path: classpath:/templates
-    cache: false
-    charset: utf-8
-    check-template-location: true
-    content-type: text/html
-    expose-request-attributes: false
-    expose-session-attributes: false
-    request-context-attribute: request
-    suffix: .ftl
-
-  mvc:
-    static-path-pattern: /**
-
-logging:
-  config: classpath:logback-spring.xml
-
-mybatis:
-  mapper-locations: classpath:mapper/*.xml

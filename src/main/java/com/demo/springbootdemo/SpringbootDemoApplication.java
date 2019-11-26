@@ -5,6 +5,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
@@ -14,7 +16,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @date: 2019/8/10 0:53
  **/
 @SpringBootApplication
-@EnableTransactionManagement
+@EnableTransactionManagement //开启事务管理
 @MapperScan("com.demo.springbootdemo.dao")
 public class SpringbootDemoApplication extends SpringBootServletInitializer {
 
