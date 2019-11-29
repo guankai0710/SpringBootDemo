@@ -6,7 +6,10 @@ import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,8 +23,17 @@ import java.net.Socket;
  * @author: guan.kai
  * @date: 2019/11/22 15:34
  **/
-public class TestTCPIPServer {
+@Component
+public class TestTCPIPServer implements Runnable {
     private static final Logger LOGGER = LoggerFactory.getLogger(TestTCPIPServer.class);
+
+    private Thread socketThread;
+
+    private boolean isStop = false;
+
+    private Socket socket;
+
+    private static final int SOCKET_PORT=6969;
 
     //报文头长度
     private static final int LEN_LENGHT=8;
@@ -29,18 +41,64 @@ public class TestTCPIPServer {
     private static final String DEFULT_ENCODING="GBK";
 
 
-    public static void main(String[] args) {
-        try {
-            ServerSocket server = new ServerSocket(6969);
+//    public static void main(String[] args) {
+//        try {
+//            ServerSocket server = new ServerSocket(SOCKET_PORT);
+//
+//            while (true){
+//                this.socket = server.accept();
+//                byte[] req = readPackage(socket.getInputStream());
+//                Document doc = DocumentHelper.parseText(new String(new String(req, DEFULT_ENCODING).getBytes(System.getProperty("file.encoding"))));
+//                String tranCode = doc.getRootElement().selectSingleNode("TranCode").getText();
+//                BufferedWriter writer = null;
+//                try {
+//                    writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream(), DEFULT_ENCODING));
+//                    if (StringUtils.isBlank(tranCode)){
+//                        String resp = "<body_resp><TranCode>9999</TranCode><Msg>无此交易码！</Msg></body_resp>";
+//                        writer.write(new String(wrapMessagePackage(resp.getBytes()), DEFULT_ENCODING));
+//                        writer.flush();
+//                    } else if ("000001".equals(tranCode)){
+//
+//                    }
+//                } catch (IOException e) {
+//                    LOGGER.error(e.getMessage(), e);
+//                } finally {
+//                    if (writer != null){
+//                        writer.close();
+//                        socket.close();
+//                    }
+//                }
+//            }
+//        } catch (IOException e) {
+//            LOGGER.error(e.getMessage(), e);
+//        } catch (DocumentException e) {
+//            LOGGER.error(e.getMessage(), e);
+//        }
+//    }
 
-            while (true){
-                Socket socket = server.accept();
-                byte[] req = readPackage(socket.getInputStream());
+    @PostConstruct
+    public void startUp(){
+        this.socketThread = new Thread(this);
+        this.isStop = false;
+        this.socketThread.setName("Socket-Thread");
+        this.socketThread.start();
+    }
+
+
+    @Override
+    public void run() {
+        try {
+            ServerSocket server = new ServerSocket(SOCKET_PORT);
+            LOGGER.info("初始化Socket服务完成，端口：{}", SOCKET_PORT);
+
+            while (!this.isStop){
+                this.socket = server.accept();
+                byte[] req = readPackage(this.socket.getInputStream());
                 Document doc = DocumentHelper.parseText(new String(new String(req, DEFULT_ENCODING).getBytes(System.getProperty("file.encoding"))));
                 String tranCode = doc.getRootElement().selectSingleNode("TranCode").getText();
                 BufferedWriter writer = null;
                 try {
-                    writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream(), DEFULT_ENCODING));
+                    writer = new BufferedWriter(new OutputStreamWriter(this.socket.getOutputStream(), DEFULT_ENCODING));
                     if (StringUtils.isBlank(tranCode)){
                         String resp = "<body_resp><TranCode>9999</TranCode><Msg>无此交易码！</Msg></body_resp>";
                         writer.write(new String(wrapMessagePackage(resp.getBytes()), DEFULT_ENCODING));
@@ -69,7 +127,7 @@ public class TestTCPIPServer {
      * @param in
      * @return
      */
-    private static byte[] readPackage(InputStream in) throws IOException {
+    private byte[] readPackage(InputStream in) throws IOException {
         //报文体长度
         byte[] bodyLen = null;
         try {
@@ -116,7 +174,7 @@ public class TestTCPIPServer {
      * @param byteLen 报文体长度
      * @return
      */
-    private static byte[] getPackageLen(InputStream in, int off, int byteLen) throws IOException {
+    private byte[] getPackageLen(InputStream in, int off, int byteLen) throws IOException {
         byte[] buf = new byte[byteLen];
         int readLen = 0;
         while (readLen < byteLen){
@@ -134,7 +192,7 @@ public class TestTCPIPServer {
      * @param msg
      * @return
      */
-    private static byte[] wrapMessagePackage(byte[] msg){
+    private byte[] wrapMessagePackage(byte[] msg){
         byte[] retMsg = null;
         try {
             //将使用系统默认字符集编码的数据转换成gbk编码
@@ -151,6 +209,16 @@ public class TestTCPIPServer {
             LOGGER.error(e.getMessage(), e);
         }
         return retMsg;
+    }
+
+    @PreDestroy
+    public void shutDown() {
+        this.isStop = true;
+        try {
+            this.socket.close();
+        } catch (IOException e) {
+            LOGGER.error(e.getMessage(), e);
+        }
     }
 
 }

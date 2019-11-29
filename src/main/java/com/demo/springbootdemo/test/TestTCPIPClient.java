@@ -30,7 +30,7 @@ public class TestTCPIPClient {
             socket = new Socket("127.0.0.1", 6969);
             OutputStream out = socket.getOutputStream();
             socket.setSoTimeout(60000);
-            out.write(wrapMessagePackage(("<body_req><TranCode>9999</TranCode></body_req>").getBytes(DEFULT_ENCODING)));
+            out.write(wrapMessagePackage(("<body_req><TranCode></TranCode></body_req>").getBytes(DEFULT_ENCODING)));
             out.flush();
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream(), DEFULT_ENCODING));

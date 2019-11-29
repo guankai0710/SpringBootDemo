@@ -5,7 +5,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -31,8 +30,14 @@ public class HelloJob {
     @Autowired
     private ThreadPoolTaskExecutor threadPoolTaskExecutor;
 
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
+//    private ThreadPoolExecutor executor = null;
+//
+//    @PostConstruct
+//    public void initThreadPool() {
+//        this.executor = new ThreadPoolExecutor(5, 10, 60L, TimeUnit.SECONDS,
+//                new ArrayBlockingQueue<>(1000), new ThreadPoolExecutor.AbortPolicy());
+//        logger.info("线程池初始化完成！");
+//    }
 
     /**
      * 每天早上8点跑
@@ -63,7 +68,13 @@ public class HelloJob {
 
             }
         }
-//        jdbcTemplate.queryForList("");
-
     }
+
+//    @PreDestroy
+//    public void shutDown() {
+//        if (executor != null) {
+//            executor.shutdown();
+//            logger.info("线程池关闭！");
+//        }
+//    }
 }
