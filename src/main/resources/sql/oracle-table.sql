@@ -8,7 +8,7 @@ CREATE TABLE DEMO_PERSON
 	NAME       		  VARCHAR2(10),
 	ACCOUNT         VARCHAR2(10) NOT NULL,
 	PASSDORD        VARCHAR2(20) NOT NULL,
-	AGE        		  NUMBER(1,0),
+	AGE        		  NUMBER(3,0),
 	SEX        		  VARCHAR2(1),
 	TEL        		  VARCHAR2(20),
 	EMAIL        		VARCHAR2(35),
