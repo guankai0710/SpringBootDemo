@@ -83,7 +83,7 @@ public class HttpUtil {
             registry = RegistryBuilder.<ConnectionSocketFactory> create()
                     .register("http", new PlainConnectionSocketFactory()).register("https", getSSLFactory()).build();
         } catch (Exception e) {
-            System.out.println("获取 HTTPClient注册器失败" + e);
+            logger.info("获取 HTTPClient注册器失败",e);
         }
         return registry;
     }

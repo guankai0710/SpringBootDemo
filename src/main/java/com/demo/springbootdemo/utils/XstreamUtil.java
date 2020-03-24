@@ -105,7 +105,7 @@ public class XstreamUtil {
     }
 
     /**
-     * 通过Xsteam对象将bean对象转换成xml字符串转换空字符串
+     * 通过Xsteam对象将bean对象转换成xml字符串
      *
      * @param classType
      * @param bean
@@ -119,7 +119,7 @@ public class XstreamUtil {
     }
 
     /**
-     * 通过Xsteam对象将bean对象转换成xml字符串转换空字符串
+     * 通过Xsteam对象将bean对象转换成xml字符串
      *
      * @param classType
      * @param bean

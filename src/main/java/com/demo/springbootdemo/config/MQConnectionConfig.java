@@ -1,4 +1,4 @@
-//package com.demo.springbootdemo.config;
+//package com.Demo.springbootdemo.config;
 //
 //import com.rabbitmq.client.Connection;
 //import com.rabbitmq.client.ConnectionFactory;

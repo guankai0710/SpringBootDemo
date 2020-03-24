@@ -1,10 +1,16 @@
 package com.demo.springbootdemo.jobs;
 
+import cn.binarywang.wx.miniapp.api.WxMaService;
+import cn.binarywang.wx.miniapp.api.impl.WxMaServiceImpl;
+import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
 import com.demo.springbootdemo.thread.TestThread;
+import com.rabbitmq.client.Connection;
+import me.chanjar.weixin.common.error.WxErrorException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -30,6 +36,12 @@ public class HelloJob {
     @Autowired
     private ThreadPoolTaskExecutor threadPoolTaskExecutor;
 
+//    @Autowired
+//    private RedisUtil redisUtil;
+
+//    @Autowired
+//    private Connection rabbitMqConnection;
+
 //    private ThreadPoolExecutor executor = null;
 //
 //    @PostConstruct
@@ -50,8 +62,8 @@ public class HelloJob {
         logger.error(str);
     }
 
-    @Scheduled(cron = "0/10 * * * * ?")
-    public void test(){
+    @Scheduled(cron = "0/10 * 8 * * ?")
+    public void testThread(){
         Future<?> future = threadPoolTaskExecutor.submit(new TestThread("hhhh"));
 
         while (true) {
