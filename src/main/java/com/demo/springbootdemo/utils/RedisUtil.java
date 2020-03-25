@@ -4,7 +4,6 @@ import com.demo.springbootdemo.config.redis.RedisTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
@@ -18,7 +17,6 @@ import java.util.concurrent.TimeUnit;
  * @author: guan.kai
  * @date: 9/12/3 11:15
  **/
-@Component
 public final class RedisUtil {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RedisUtil.class);
@@ -140,7 +138,7 @@ public final class RedisUtil {
     /**
      * 递增
      * @param key 键
-     * @param by 要增加几(大于0)
+     * @param delta 要增加几(大于0)
      * @return
      */
     public long incr(String key, long delta){
@@ -153,7 +151,7 @@ public final class RedisUtil {
     /**
      * 递减
      * @param key 键
-     * @param by 要减少几(小于0)
+     * @param delta 要减少几(小于0)
      * @return
      */
     public long decr(String key, long delta){
@@ -441,7 +439,6 @@ public final class RedisUtil {
      * 将list放入缓存
      * @param key 键
      * @param value 值
-     * @param time 时间(秒)
      * @return
      */
     public boolean lSet(String key, Object value) {
@@ -476,7 +473,6 @@ public final class RedisUtil {
      * 将list放入缓存
      * @param key 键
      * @param value 值
-     * @param time 时间(秒)
      * @return
      */
     public boolean lSet(String key, List<Object> value) {
@@ -499,7 +495,9 @@ public final class RedisUtil {
     public boolean lSet(String key, List<Object> value, long time) {
         try {
             redisTemplate.opsForList().rightPushAll(key, value);
-            if (time > 0) expire(key, time);
+            if (time > 0) {
+                expire(key, time);
+            }
             return true;
         } catch (Exception e) {
             e.printStackTrace();
