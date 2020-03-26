@@ -28,7 +28,7 @@ public final class RedisUtil {
         this.redisTemplate = redisTemplate;
     }
 
-    //=============================common============================
+    /* ============================= common ============================ **/
     /**
      * 指定缓存失效时间
      * @param key 键
@@ -85,7 +85,8 @@ public final class RedisUtil {
         }
     }
 
-    //============================String=============================
+
+    /* ============================= String ============================ **/
     /**
      * 普通缓存获取
      * @param key 键
@@ -161,7 +162,8 @@ public final class RedisUtil {
         return redisTemplate.opsForValue().increment(key, -delta);
     }
 
-    //================================Map=================================
+
+    /* ============================= Hash ============================ **/
     /**
      * HashGet
      * @param key 键 不能为null
@@ -296,7 +298,8 @@ public final class RedisUtil {
         return redisTemplate.opsForHash().increment(key, item,-by);
     }
 
-    //============================set=============================
+
+    /* ============================= set ============================ **/
     /**
      * 根据key获取Set中的所有值
      * @param key 键
@@ -351,7 +354,9 @@ public final class RedisUtil {
     public long sSetAndTime(String key,long time,Object...values) {
         try {
             Long count = redisTemplate.opsForSet().add(key, values);
-            if(time>0) expire(key, time);
+            if(time>0){
+                expire(key, time);
+            }
             return count;
         } catch (Exception e) {
             e.printStackTrace();
@@ -388,8 +393,64 @@ public final class RedisUtil {
             return 0;
         }
     }
-    //===============================list=================================
 
+
+    /* ============================= Zset ============================ **/
+    /* Zset是有序不重复集合，根据分数排序，分数可相同 **/
+    /**
+     * 向集合中插入元素，并设置分数
+     * @param key 键
+     * @param value 值
+     * @param score 分数
+     * @return
+     */
+    public Boolean zsSet(String key,Object value,double score){
+        try {
+            return redisTemplate.opsForZSet().add(key,value,score);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * 向集合中插入元素，并设置分数
+     * @param key 键
+     * @param value 值
+     * @param score 分数
+     * @param time 过期时间
+     * @return
+     */
+    public Boolean zsSet(String key,Object value,double score,long time){
+        try {
+            redisTemplate.opsForZSet().add(key,value,score);
+            if(time>0){
+                expire(key, time);
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * 移除值为value的
+     * @param key 键
+     * @param values 值 可以是多个
+     * @return 移除的个数
+     */
+    public long zsetRemove(String key, Object ...values) {
+        try {
+            return redisTemplate.opsForSet().remove(key, values);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+
+    /* ============================= list ============================ **/
     /**
      * 获取list缓存的内容
      * @param key 键
@@ -461,7 +522,9 @@ public final class RedisUtil {
     public boolean lSet(String key, Object value, long time) {
         try {
             redisTemplate.opsForList().rightPush(key, value);
-            if (time > 0) expire(key, time);
+            if (time > 0) {
+                expire(key, time);
+            }
             return true;
         } catch (Exception e) {
             e.printStackTrace();
