@@ -35,46 +35,10 @@ public class TestTCPIPServer implements Runnable {
 
     private static final int SOCKET_PORT=6969;
 
-    //报文头长度
+    /** 报文头长度 */
     private static final int LEN_LENGHT=8;
-    //默认编码
+    /** 默认编码 */
     private static final String DEFULT_ENCODING="GBK";
-
-
-//    public static void main(String[] args) {
-//        try {
-//            ServerSocket server = new ServerSocket(SOCKET_PORT);
-//
-//            while (true){
-//                this.socket = server.accept();
-//                byte[] req = readPackage(socket.getInputStream());
-//                Document doc = DocumentHelper.parseText(new String(new String(req, DEFULT_ENCODING).getBytes(System.getProperty("file.encoding"))));
-//                String tranCode = doc.getRootElement().selectSingleNode("TranCode").getText();
-//                BufferedWriter writer = null;
-//                try {
-//                    writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream(), DEFULT_ENCODING));
-//                    if (StringUtils.isBlank(tranCode)){
-//                        String resp = "<body_resp><TranCode>9999</TranCode><Msg>无此交易码！</Msg></body_resp>";
-//                        writer.write(new String(wrapMessagePackage(resp.getBytes()), DEFULT_ENCODING));
-//                        writer.flush();
-//                    } else if ("000001".equals(tranCode)){
-//
-//                    }
-//                } catch (IOException e) {
-//                    LOGGER.error(e.getMessage(), e);
-//                } finally {
-//                    if (writer != null){
-//                        writer.close();
-//                        socket.close();
-//                    }
-//                }
-//            }
-//        } catch (IOException e) {
-//            LOGGER.error(e.getMessage(), e);
-//        } catch (DocumentException e) {
-//            LOGGER.error(e.getMessage(), e);
-//        }
-//    }
 
     @PostConstruct
     public void startUp(){
