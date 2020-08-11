@@ -1,18 +1,15 @@
 package com.demo.springbootdemo.test;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
  * jdk1.8 中 Lambda表达式、stream流 测试
  *
- * @author: guankai
- * @date: 2020/8/10
+ * @author guankai
+ * @date 2020/8/10
  **/
 public class Java8Test {
 
