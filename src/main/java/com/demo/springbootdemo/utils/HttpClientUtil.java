@@ -17,8 +17,12 @@ import org.apache.http.conn.socket.ConnectionSocketFactory;
 import org.apache.http.conn.socket.PlainConnectionSocketFactory;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
-import org.apache.http.entity.FileEntity;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.entity.mime.content.ContentBody;
+import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
@@ -324,27 +328,38 @@ public class HttpClientUtil {
      *
      * @param url 地址
      * @param params 参数
-     * @param files 文件
+     * @param files 文件，没有给 null 值
      * @return
      */
-    public static Map<String,Object> httpPostFormdata(String url, Map<String, Object> params, File... files) {
+    public static Map<String,Object> httpPostFormdata(String url, Map<String, Object> params, Map<String, File> files) {
         try {
-            // 转换请求参数
-            List<NameValuePair> pairs = covertParams2NVPS(params);
             HttpPost httpPost = new HttpPost(url);
 
-            // 设置请求参数
-            httpPost.setEntity(new UrlEncodedFormEntity(pairs, StandardCharsets.UTF_8.name()));
-            for (File file : files) {
-                httpPost.setEntity(new FileEntity(file));
+            //设置请求参数
+            Map<String, ContentBody> reqParam = new HashMap<>(16);
+            if (params != null){
+                for (Map.Entry<String, Object> param : params.entrySet()) {
+                    if (param.getValue() != null){
+                        reqParam.put(param.getKey(),new StringBody(param.getValue().toString(), ContentType.MULTIPART_FORM_DATA));
+                    }
+                }
             }
-            // 设置请求头
-            httpPost.setHeader("Content-type", "multipart/form-data; boundary=<calculated when request is sent>");
+            if (files != null){
+                for (Map.Entry<String, File> file : files.entrySet()) {
+                    reqParam.put(file.getKey(),new FileBody(file.getValue()));
+                }
+            }
+            MultipartEntityBuilder multipartEntityBuilder = MultipartEntityBuilder.create();
+            for(Map.Entry<String, ContentBody> param : reqParam.entrySet()){
+                multipartEntityBuilder.addPart(param.getKey(), param.getValue());
+            }
+            HttpEntity reqEntity = multipartEntityBuilder.build();
+            httpPost.setEntity(reqEntity);
 
             Map<String,Object> resultMap = JSON.parseObject(doHttp(httpPost),Map.class);
             return resultMap;
         } catch (Exception e) {
-            logger.error(e.getMessage(),e);
+
             return ERROR_MAP;
         }
     }
