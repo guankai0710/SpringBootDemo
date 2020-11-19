@@ -16,11 +16,26 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebConfigurer implements WebMvcConfigurer {
 
-    /**
-     * 登录拦截器
-     **/
+    /** 登录拦截器 */
     @Autowired
     private LoginInterceptor loginInterceptor;
+
+    /** 放行接口路径 */
+    private static final String[] EXCLUDE_PATHS = {
+            "/test",
+            "/login",
+            "/register"
+    };
+
+    /** 静态资源路径 */
+    private static final String[] STATIC_RESOURCES = {
+            "/css/**",
+            "/js/**",
+            "/images/**",
+            "/fonts/**",
+            "/bootstrap/**"
+    };
+
 
     /**
      * 注册拦截器，我们自己写好的拦截器需要通过这里添加注册才能生效
@@ -33,28 +48,21 @@ public class WebConfigurer implements WebMvcConfigurer {
         // excludePathPatterns("/login", "/register") 表示除了登陆与注册之外，因为登陆注册不需要登陆也可以访问
         registry.addInterceptor(loginInterceptor)
                 .addPathPatterns("/**")
-                .excludePathPatterns(
-                        "/test",
-                        "/login",
-                        "/register",
-                        "/css/**",
-                        "/js/**",
-                        "/images/**",
-                        "/fonts/**",
-                        "/bootstrap/**"
-                );
+                .excludePathPatterns(EXCLUDE_PATHS)
+                .excludePathPatterns(STATIC_RESOURCES);
 //        super.addInterceptors(registry);    //较新Spring Boot的版本中这里可以直接去掉，否则会报错
     }
 
     /**
-     * 配置静态资源的，比如html，js，css，等等
+     * 配置静态资源，隐藏资源在服务器中的真实路径
      *
      * @param registry
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        //addResourceHandler("/static/**") 设置访问路径前缀
-        //addResourceLocations("classpath:/static/") 设置资源路径
-//        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
+//        registry.addResourceHandler(this.url + "**")
+//                .addResourceLocations("file:" + this.path);
+        //addResourceHandler("/static/**")     访问路径
+        //addResourceLocations("classpath:/static/")    资源真实路径
     }
 }
