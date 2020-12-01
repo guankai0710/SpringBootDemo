@@ -8,3 +8,6 @@ spring:
     username: root
     password: root
 
+
+logging:
+  config: classpath:logback/logback-prod.xml
