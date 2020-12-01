@@ -1,13 +1,13 @@
 server:
-  port: 8081
+  port: 8080
 
 spring:
   ## 数据源
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    url: jdbc:mysql://121.41.230.125:3306/test?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
     username: root
-    password: root
+    password: Guan123,.
 
   redis:
     database: 0

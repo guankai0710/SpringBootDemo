@@ -168,6 +168,13 @@
 
     <logger name="com.demo.springbootdemo" level="info"/>
 
+
+    <!--  输出mybatis中的sql  -->
+    <logger name="MybatisSqlSlf4jLog" level="debug" additivity="false">
+        <!-- 控制台打印日志 -->
+        <appender-ref ref="CONSOLE" />
+    </logger>
+
     <root level="info"><!-- 输出日志级别 -->
         <!-- 控制台打印日志 -->
         <appender-ref ref="CONSOLE" />
