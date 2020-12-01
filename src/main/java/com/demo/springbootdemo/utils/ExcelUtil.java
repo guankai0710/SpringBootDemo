@@ -46,10 +46,8 @@ public class ExcelUtil {
      */
     public static String[][] importExcel(MultipartFile file){
         Workbook wb = null;
-        InputStream inputStream = null;
         String filename;
-        try {
-            inputStream = file.getInputStream();
+        try(InputStream inputStream = file.getInputStream()) {
             filename = file.getOriginalFilename();
             //根据不同的文件格式生成不同的workbook
             if (filename.matches(XLS_REGEX)){
@@ -59,12 +57,6 @@ public class ExcelUtil {
             }
         } catch (IOException e) {
             logger.error(e.getMessage());
-        } finally {
-            try {
-                inputStream.close();
-            } catch (IOException e) {
-                logger.error(e.getMessage());
-            }
         }
         Sheet sheet = wb.getSheetAt(0);
 
@@ -100,10 +92,8 @@ public class ExcelUtil {
         JsonResult result = new JsonResult();
         result.setSuccess(false);
         Workbook wb = null;
-        InputStream inputStream = null;
         String filename;
-        try {
-            inputStream = file.getInputStream();
+        try(InputStream inputStream = file.getInputStream()) {
             filename = file.getOriginalFilename();
             //判断文件格式
             if (filename.matches(XLS_REGEX)){
@@ -116,12 +106,6 @@ public class ExcelUtil {
             }
         } catch (IOException e) {
             logger.error(e.getMessage());
-        } finally {
-            try {
-                inputStream.close();
-            } catch (IOException e) {
-                logger.error(e.getMessage());
-            }
         }
         Sheet sheet = wb.getSheetAt(0);
         //起始行数为null时默认从第2行开始导入数据
@@ -250,29 +234,20 @@ public class ExcelUtil {
      * @param fileName 文件名称
      */
     private static void setResponseHeader(HttpServletResponse response, XSSFWorkbook wb, String fileName) {
-        ServletOutputStream os = null;
         try {
             fileName = new String(fileName.getBytes(),"ISO8859-1");
-            response.setContentType("application/octet-stream;charset=ISO8859-1");
-            response.setHeader("Content-Disposition", "attachment;filename="+ fileName);
-            response.addHeader("Pargam", "no-cache");
-            response.addHeader("Cache-Control", "no-cache");
-            //响应到客户端
-            os = response.getOutputStream();
-            wb.write(os);
         } catch (UnsupportedEncodingException e) {
             logger.error(e.getMessage());
-        } catch (IOException e) {
+        }
+        response.setContentType("application/octet-stream;charset=ISO8859-1");
+        response.setHeader("Content-Disposition", "attachment;filename="+ fileName);
+        response.addHeader("Pargam", "no-cache");
+        response.addHeader("Cache-Control", "no-cache");
+        //响应到客户端
+        try(ServletOutputStream os = response.getOutputStream()) {
+            wb.write(os);
+        } catch ( Exception e) {
             logger.error(e.getMessage());
-        } catch (Exception ex) {
-            logger.error(ex.getMessage());
-        } finally {
-            try {
-                os.flush();
-                os.close();
-            } catch (IOException e) {
-                logger.error(e.getMessage());
-            }
         }
     }
 

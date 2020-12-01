@@ -1,7 +1,12 @@
 package com.demo.springbootdemo.test;
 
+import com.google.common.collect.Lists;
+
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -17,15 +22,21 @@ public class Java8Test {
 
         //测试数据
         Person p1 = new Person(1, "张三",25);
-        Person p2 = new Person(5, "李四",21);
+        Person p2 = new Person(2, "李四",21);
         Person p3 = new Person(3, "王五",31);
-        Person p4 = new Person(7, "赵六",18);
+        Person p4 = new Person(4, "赵六",18);
+        Person p5 = new Person(5, "AA",19);
+        Person p6 = new Person(6, "BB",21);
+        Person p7 = new Person(7, "CC",31);
 
         List<Person> list = new ArrayList<>(4);
         list.add(p1);
         list.add(p2);
         list.add(p3);
         list.add(p4);
+        list.add(p5);
+        list.add(p6);
+        list.add(p7);
 
         System.out.println("年龄升序===");
         List<Person> list1 = list.stream()
@@ -66,11 +77,18 @@ public class Java8Test {
         System.out.println(collect);
         System.out.println();
 
-
+        //抽取某个属性转map
         Map<String, Person> map = list.stream().collect(Collectors.toMap(Person::getName, person -> person));
         Map<String, Integer> map1 = list.stream().collect(Collectors.toMap(Person::getName, Person::getAge));
         Map<String, Person> map2 = list.stream().collect(Collectors.toMap(Person::getName, Function.identity()));
-
+        Map<Integer, List<Integer>> map3 = list.stream().collect(Collectors.toMap(
+                person -> person.age,
+                person -> Lists.newArrayList(person.id),
+                (List<Integer> oldList, List<Integer> newList) -> {
+                    newList.addAll(oldList);
+                    return newList;
+                }
+        ));
 
         System.out.println();
 
