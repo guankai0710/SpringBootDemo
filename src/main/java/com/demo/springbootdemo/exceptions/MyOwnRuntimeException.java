@@ -6,7 +6,7 @@ package com.demo.springbootdemo.exceptions;
  * @author: guan.kai
  * @date: 2019/8/28 15:11
  **/
-public class MyOwnRuntimeException extends Exception {
+public class MyOwnRuntimeException extends RuntimeException {
 
     public MyOwnRuntimeException(){
         super();

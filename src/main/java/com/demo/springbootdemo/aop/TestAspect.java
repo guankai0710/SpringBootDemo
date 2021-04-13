@@ -1,6 +1,7 @@
 package com.demo.springbootdemo.aop;
 
 import com.alibaba.fastjson.JSON;
+import com.demo.springbootdemo.annotation.TestLog;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -30,7 +31,7 @@ public class TestAspect {
     /**
      * 切点
      */
-    @Pointcut("@annotation(com.demo.springbootdemo.aop.TestLog)")
+    @Pointcut("@annotation(com.demo.springbootdemo.annotation.TestLog)")
     public void parseAnnotation(){
     }
 

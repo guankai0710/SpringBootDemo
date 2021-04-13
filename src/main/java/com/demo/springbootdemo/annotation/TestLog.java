@@ -1,4 +1,4 @@
-package com.demo.springbootdemo.aop;
+package com.demo.springbootdemo.annotation;
 
 import org.springframework.core.annotation.AliasFor;
 
