@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>动态的心型页面</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            overflow: hidden;
+        }
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<script>
+    // 获取 canvas 元素和上下文
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+
+    // 设置 canvas 宽高
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    // 定义变量
+    var heart = {x: canvas.width/2, y: canvas.height/2 - 50, size: 150, fillStyle: "#FF1493", dx: 1, dy: 1};
+    var angle = 0;
+
+    // 定义绘制函数
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // 绘制心型
+        ctx.fillStyle = heart.fillStyle;
+        ctx.beginPath();
+        ctx.moveTo(heart.x, heart.y);
+        ctx.bezierCurveTo(heart.x + heart.size/2, heart.y - heart.size/2, heart.x + heart.size/2, heart.y + heart.size/2, heart.x, heart.y + heart.size/2);
+        ctx.bezierCurveTo(heart.x - heart.size/2, heart.y + heart.size/2, heart.x - heart.size/2, heart.y - heart.size/2, heart.x, heart.y);
+        ctx.fill();
+
+        // 使心型动起来
+        heart.x += heart.dx;
+        heart.y += heart.dy;
+        angle += 0.01;
+        heart.size = 150 + 50 * Math.sin(angle);
+
+        // 碰到边界时反弹
+        if (heart.x + heart.size/2 > canvas.width || heart.x - heart.size/2 < 0) {
+            heart.dx = -heart.dx;
+        }
+        if (heart.y + heart.size/2 > canvas.height || heart.y - heart.size/2 < 0) {
+            heart.dy = -heart.dy;
+        }
+
+        // 循环绘制
+        requestAnimationFrame(draw);
+    }
+
+    // 调用绘制函数
+    draw();
+</script>
+</body>
+</html>

@@ -36,6 +36,7 @@ public class WebConfigurer implements WebMvcConfigurer {
         EXCLUDE_PATHS.add("/test");
         EXCLUDE_PATHS.add("/test/post");
         EXCLUDE_PATHS.add("/login");
+        EXCLUDE_PATHS.add("/login.test");
         EXCLUDE_PATHS.add("/register");
     }
 

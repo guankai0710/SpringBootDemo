@@ -7,11 +7,14 @@ import com.demo.springbootdemo.vo.JsonResult;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 /**
  * 登录、注册
@@ -43,19 +46,27 @@ public class LoginController {
      * @param password 密码
      * @return
      */
+    @PostMapping("/login.test")
+    @ResponseBody
+    public JsonResult logintest(HttpServletRequest request, String a, MultipartFile b){
+        JsonResult result = new JsonResult();
+        result.setObj(a);
+        return result;
+    }
+
+    /**
+     * 登录操作
+     *
+     * @param request
+     * @param account 账号
+     * @param password 密码
+     * @return
+     */
     @PostMapping("/login")
     @ResponseBody
-    public JsonResult login(HttpServletRequest request, String account, String password){
+    public JsonResult login(HttpServletRequest request, String a, MultipartFile b){
         JsonResult result = new JsonResult();
-        Person person = personService.getByAccount(account);
-        if (person != null && password.equals(person.getPassword())){
-            HttpSession session = request.getSession();
-            session.setAttribute("person",person);
-            result.setSuccess(true);
-            result.setMsg("登录成功！");
-        }else {
-            result.setMsg("用户名密码错误！！");
-        }
+        result.setObj(a);
         return result;
     }
 
