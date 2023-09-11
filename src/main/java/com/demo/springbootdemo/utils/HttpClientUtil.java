@@ -1,6 +1,9 @@
 package com.demo.springbootdemo.utils;
 
 import com.alibaba.fastjson.JSON;
+import com.google.common.collect.Maps;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.http.Consts;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.config.RequestConfig;
@@ -10,7 +13,6 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.config.Registry;
 import org.apache.http.config.RegistryBuilder;
 import org.apache.http.conn.socket.ConnectionSocketFactory;
@@ -30,13 +32,9 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.ssl.SSLContextBuilder;
 import org.apache.http.ssl.TrustStrategy;
 import org.apache.http.util.EntityUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.net.ssl.SSLContext;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
@@ -48,12 +46,11 @@ import java.util.Map;
 /**
  * HTTP请求工具类
  *
- * @author: guan.kai
- * @date: 2019/9/11 15:12
+ * @author guankai
+ * @date 2020/10/23
  **/
+@Slf4j
 public class HttpClientUtil {
-
-    private static Logger logger = LoggerFactory.getLogger(HttpClientUtil.class);
 
     /** 从连接时获取时间*/
     private static int CONNECTION_REQUEST_TIMEOUT = 1000;
@@ -98,7 +95,7 @@ public class HttpClientUtil {
             registry = RegistryBuilder.<ConnectionSocketFactory> create()
                     .register("http", new PlainConnectionSocketFactory()).register("https", getSSLFactory()).build();
         } catch (Exception e) {
-            logger.error("获取 HTTPClient注册器失败",e);
+            log.error("获取 HTTPClient注册器失败",e);
         }
         return registry;
     }
@@ -140,7 +137,7 @@ public class HttpClientUtil {
             Map<String,Object> resultMap = JSON.parseObject(doHttp(httpGet),Map.class);
             return resultMap;
         } catch (Exception e) {
-            logger.error(e.getMessage(),e);
+            log.error(e.getMessage(),e);
             return ERROR_MAP;
         }
     }
@@ -166,7 +163,7 @@ public class HttpClientUtil {
             Map<String,Object> resultMap = JSON.parseObject(doHttp(httpGet),Map.class);
             return resultMap;
         } catch (Exception e) {
-            logger.error(e.getMessage(),e);
+            log.error(e.getMessage(),e);
             return ERROR_MAP;
         }
     }
@@ -197,7 +194,7 @@ public class HttpClientUtil {
             Map<String,Object> resultMap = JSON.parseObject(doHttp(httpGet),Map.class);
             return resultMap;
         } catch (Exception e) {
-            logger.error(e.getMessage(),e);
+            log.error(e.getMessage(),e);
             return ERROR_MAP;
         }
     }
@@ -215,7 +212,7 @@ public class HttpClientUtil {
             Map<String,Object> resultMap = JSON.parseObject(doHttp(httpPost),Map.class);
             return resultMap;
         } catch (Exception e) {
-            logger.error(e.getMessage(),e);
+            log.error(e.getMessage(),e);
             return ERROR_MAP;
         }
     }
@@ -239,7 +236,7 @@ public class HttpClientUtil {
             Map<String,Object> resultMap = JSON.parseObject(doHttp(httpPost),Map.class);
             return resultMap;
         } catch (Exception e) {
-            logger.error(e.getMessage(),e);
+            log.error(e.getMessage(),e);
             return ERROR_MAP;
         }
     }
@@ -268,10 +265,13 @@ public class HttpClientUtil {
             Map<String,Object> resultMap = JSON.parseObject(doHttp(httpPost),Map.class);
             return resultMap;
         } catch (Exception e) {
-            logger.error(e.getMessage(),e);
+            log.error(e.getMessage(),e);
             return ERROR_MAP;
         }
     }
+
+
+
 
     /**
      * 发送 HTTP POST请求，参数格式JSON
@@ -292,10 +292,52 @@ public class HttpClientUtil {
             Map<String,Object> resultMap = JSON.parseObject(doHttp(httpPost),Map.class);
             return resultMap;
         } catch (Exception e) {
-            logger.error(e.getMessage(),e);
+            log.error(e.getMessage(),e);
             return ERROR_MAP;
         }
     }
+
+    /**
+     * 发送 HTTP POST请求，参数格式JSON
+     * 请求参数是JSON格式，数据编码是UTF-8
+     *
+     * @param url 地址
+     * @param param 参数
+     * @return
+     */
+    public static String newHttpPostJson(String url, String param) throws Exception{
+        HttpPost httpPost = new HttpPost(url);
+        // 设置请求头
+        httpPost.addHeader("Content-Type", "application/json; charset=UTF-8");
+        // 设置请求参数
+        httpPost.setEntity(new StringEntity(param, StandardCharsets.UTF_8.name()));
+        return doHttp(httpPost);
+    }
+
+    /**
+     * 发送 HTTP POST请求，参数格式JSON
+     * 请求参数是JSON格式，数据编码是UTF-8
+     *
+     * @param url 地址
+     * @param param 参数
+     * @return
+     */
+    public static Map<String,Object> httpPostAuthorizationJson(String url, String param,String accessToken) {
+        try {
+            HttpPost httpPost = new HttpPost(url);
+            // 设置请求头
+            httpPost.addHeader("Content-Type", "application/json; charset=UTF-8");
+            httpPost.setHeader("Authorization", "Bearer "+ accessToken );
+            // 设置请求参数
+            httpPost.setEntity(new StringEntity(param, StandardCharsets.UTF_8.name()));
+            return  JSON.parseObject(doHttp(httpPost),HashMap.class);
+        } catch (Exception e) {
+            log.error(e.getMessage(),e);
+            return ERROR_MAP;
+        }
+    }
+
+
 
     /**
      * application/x-www-form-urlencoded
@@ -318,7 +360,7 @@ public class HttpClientUtil {
             Map<String,Object> resultMap = JSON.parseObject(doHttp(httpPost),Map.class);
             return resultMap;
         } catch (Exception e) {
-            logger.error(e.getMessage(),e);
+            log.error(e.getMessage(),e);
             return ERROR_MAP;
         }
     }
@@ -335,15 +377,17 @@ public class HttpClientUtil {
         try {
             HttpPost httpPost = new HttpPost(url);
 
-            //设置请求参数
-            Map<String, ContentBody> reqParam = new HashMap<>(16);
+            // 设置请求参数
+            Map<String,ContentBody> reqParam = new HashMap<>(16);
+            //普通参数
             if (params != null){
                 for (Map.Entry<String, Object> param : params.entrySet()) {
                     if (param.getValue() != null){
-                        reqParam.put(param.getKey(),new StringBody(param.getValue().toString(), ContentType.MULTIPART_FORM_DATA));
+                        reqParam.put(param.getKey(),new StringBody(param.getValue().toString(), ContentType.MULTIPART_FORM_DATA.getMimeType(), Consts.UTF_8));
                     }
                 }
             }
+            //文件参数
             if (files != null){
                 for (Map.Entry<String, File> file : files.entrySet()) {
                     reqParam.put(file.getKey(),new FileBody(file.getValue()));
@@ -359,21 +403,56 @@ public class HttpClientUtil {
             Map<String,Object> resultMap = JSON.parseObject(doHttp(httpPost),Map.class);
             return resultMap;
         } catch (Exception e) {
-
+            log.error(e.getMessage(),e);
             return ERROR_MAP;
         }
     }
 
+
     /**
-     * 将Map键值对拼接成QueryString字符串，UTF-8编码
+     * multipart/form-data
      *
-     * @param params
+     * @param url 地址
+     * @param params 参数
+     * @param files 文件，没有给 null 值
      * @return
-     * @throws Exception
      */
-    public static String getQueryStr(Map<String, Object> params) throws Exception {
-        return URLEncodedUtils.format(covertParams2NVPS(params), StandardCharsets.UTF_8.name());
+    public static Map<String,Object> httpPostFormdataV2(String url, Map<String, Object> params, Map<String, File> files) {
+        try {
+            HttpPost httpPost = new HttpPost(url);
+
+            // 设置请求参数
+            Map<String,ContentBody> reqParam = Maps.newIdentityHashMap();
+            //普通参数
+            if (params != null){
+                for (Map.Entry<String, Object> param : params.entrySet()) {
+                    if (param.getValue() != null){
+                        reqParam.put(param.getKey(),new StringBody(param.getValue().toString(), ContentType.MULTIPART_FORM_DATA.getMimeType(), Consts.UTF_8));
+                    }
+                }
+            }
+            //文件参数
+            if (files != null){
+                for (Map.Entry<String, File> file : files.entrySet()) {
+                    reqParam.put(new String(file.getKey()),new FileBody(file.getValue()));
+                }
+            }
+            MultipartEntityBuilder multipartEntityBuilder = MultipartEntityBuilder.create();
+            for(Map.Entry<String, ContentBody> param : reqParam.entrySet()){
+                multipartEntityBuilder.addPart(param.getKey(), param.getValue());
+            }
+            HttpEntity reqEntity = multipartEntityBuilder.build();
+            httpPost.setEntity(reqEntity);
+
+            Map<String,Object> resultMap = JSON.parseObject(doHttp(httpPost),Map.class);
+            return resultMap;
+        } catch (Exception e) {
+            log.error(e.getMessage(),e);
+            return ERROR_MAP;
+        }
     }
+
+
 
     /**
      * 发送 HTTP 请求
@@ -435,54 +514,12 @@ public class HttpClientUtil {
         List<NameValuePair> pairs = new ArrayList<NameValuePair>();
 
         for (Map.Entry<String, Object> param : params.entrySet()) {
-            pairs.add(new BasicNameValuePair(param.getKey(), String.valueOf(param.getValue())));
+            if (param.getValue() != null){
+                pairs.add(new BasicNameValuePair(param.getKey(), String.valueOf(param.getValue())));
+            }
         }
         return pairs;
     }
 
-    /**
-     * 下载文件方法 InputStream
-     */
-    public static String httpPostJsonFile(String url, String param, String path, String FilenNme) throws Exception {
-        HttpPost httpPost = new HttpPost(url);
-        // 设置请求头
-        httpPost.addHeader("Content-Type", "application/json; charset=UTF-8");
-        // 设置请求参数
-        httpPost.setEntity(new StringEntity(param, StandardCharsets.UTF_8.name()));
-        RequestConfig.Builder builder = RequestConfig.custom();
-        RequestConfig config = builder.setSocketTimeout(SOCKET_TIMEOUT).setConnectTimeout(CONNECTION_TIMEOUT)
-                .setConnectionRequestTimeout(CONNECTION_REQUEST_TIMEOUT).build();
-        // 通过连接池获取连接对象
-        CloseableHttpClient httpClient = HttpClients.custom().setDefaultRequestConfig(config).setConnectionManager(cm)
-                .build();
-        InputStream out = null;
-        CloseableHttpResponse response = null;
-        try {
-            // 获取请求结果
-            response = httpClient.execute(httpPost);
-            // 解析请求结果
-            HttpEntity entity = response.getEntity();
-            // 获取文件流
-            out = entity.getContent();
-            // 可以是任何图片格式.jpg,.png等
-            File file = new File(path, FilenNme + ".jpg");
-            FileOutputStream fos = new FileOutputStream(file);
-            byte[] b = new byte[1024];
-            int nRead = 0;
-            while ((nRead = out.read(b)) != -1) {
-                fos.write(b, 0, nRead);
-            }
-            fos.flush();
-            fos.close();
-            out.close();
-            // 关闭IO流
-            EntityUtils.consume(entity);
-        }finally {
-            if (null != response) {
-                response.close();
-            }
-        }
-        return path + "/" + FilenNme + ".jpg";
-    }
 
 }
